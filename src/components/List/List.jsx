@@ -45,6 +45,10 @@ export default function List() {
     }))
   }
 
+  const deleteSection = (sectionId) => {
+    setSections(sections.filter(section => section.id !== sectionId))
+  }
+
   return (
     <div className='min-h-screen bg-gray-50 p-6'>
 <div className='flex justify-center mb-10'>
@@ -76,6 +80,7 @@ export default function List() {
                     section={section}
                     addTask={addTask}
                     deleteTask={deleteTask}
+                    deleteSection={deleteSection}
                 />
             ))}
           </div>
@@ -83,7 +88,7 @@ export default function List() {
   )
 }
 
-function Section({section, addTask, deleteTask}) {
+function Section({section, addTask, deleteTask, deleteSection}) {
     const [task, setTask] = useState("")
 
     const handleAddtask = () => {
@@ -93,7 +98,16 @@ function Section({section, addTask, deleteTask}) {
 
     return (
         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col">
+            {/* Section header */}
+            <div className='flex justify-between items-center mb-4'>
             <h2 className='text-xl font-semibold mb-4 text-gray-800'>{section.title}</h2>
+            <button
+                onClick={() => deleteSection(section.id)}
+                className='text-red-500 hover:text-red-700 font-bold'
+            >
+              x
+            </button>
+            </div>
 
             {/* Task lista */}
             <div className='flex-grow mb-4'>
