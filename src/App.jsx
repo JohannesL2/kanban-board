@@ -1,10 +1,11 @@
 import './App.css'
+import List from './components/List/List'
 
 function App() {
 
   return (
     <>
-    <h1>Kanban board</h1>
+    <List/>
     </>
   )
 }
