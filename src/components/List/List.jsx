@@ -100,10 +100,10 @@ function Section({section, addTask, deleteTask, deleteSection}) {
         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col">
             {/* Section header */}
             <div className='flex justify-between items-center mb-4'>
-            <h2 className='text-xl font-semibold mb-4 text-gray-800'>{section.title}</h2>
+            <h2 className='text-xl font-semibold mb-4 text-gray-800 font-honk'>{section.title}</h2>
             <button
                 onClick={() => deleteSection(section.id)}
-                className='text-red-500 hover:text-red-700 font-bold'
+                className='text-red-500 hover:text-red-700 font-bold text-3xl cursor-pointer'
             >
               x
             </button>
@@ -119,10 +119,10 @@ function Section({section, addTask, deleteTask, deleteSection}) {
                         key={t.id}
                         className='p-2 bg-gray-100 rounded-md mb-2 text-gray-700'
                         >
-                            <span>{t.text}</span>
+                            <span className='text-2xl font-medium p-4'>{t.text}</span>
                             <button
                               onClick={() => deleteTask(section.id, t.id)}
-                              className='text-red-500 hover:text-red-700 font-bold'
+                              className='text-red-500 hover:text-red-700 font-bold text-3xl cursor-pointer'
                             >
                                 x
                             </button>
@@ -142,7 +142,7 @@ function Section({section, addTask, deleteTask, deleteSection}) {
 
             <button
                 onClick={handleAddtask}
-                className='bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition'
+                className='bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition cursor-pointer'
             >
                 Add Task
             </button>
