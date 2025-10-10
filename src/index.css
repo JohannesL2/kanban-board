@@ -1,2 +1,10 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
+
+@font-face {
+    font-family: Smooch Sans;
+    src: url("./assets/smooch-sans-font.ttf");
+}
+
+@theme {
+    --font-smooch: Smooch Sans, "sans-serif";
+}

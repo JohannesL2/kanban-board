@@ -68,7 +68,7 @@ export default function List() {
         </div>
           <button
           type='submit'
-          className='text-white text-3xl p-4 rounded-full bg-blue-500 hover:bg-blue-600 shadow-md transition-transform transform hover:scale-110'
+          className='flex items-center justify-center w-12 h-12 text-white text-4xl rounded-full bg-blue-500 hover:bg-blue-600 shadow-md transition-transform transform hover:scale-110 leading-none pb-[5px] font-semibold cursor-pointer'
           >+</button>
     </form>
     </div>
@@ -100,7 +100,7 @@ function Section({section, addTask, deleteTask, deleteSection}) {
         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col">
             {/* Section header */}
             <div className='flex justify-between items-center mb-4'>
-            <h2 className='text-xl font-semibold mb-4 text-gray-800 font-honk'>{section.title}</h2>
+            <h2 className='text-4xl font-semibold mb-4 text-gray-800 font-smooch'>{section.title}</h2>
             <button
                 onClick={() => deleteSection(section.id)}
                 className='text-red-500 hover:text-red-700 font-bold text-3xl cursor-pointer'
