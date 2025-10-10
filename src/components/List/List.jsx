@@ -50,7 +50,7 @@ export default function List() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-50 p-6'>
+    <div className='min-h-screen p-6'>
 <div className='flex justify-center mb-10'>
     <form onSubmit={createSection} className='flex items-center gap-4 bg-white p-6 rounded-2xl shadow-lg'>
       <div className="flex flex-col flex-grow gap-2">
