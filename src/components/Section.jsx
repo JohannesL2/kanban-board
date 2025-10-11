@@ -24,24 +24,27 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
         style={style}
         {...listeners}
         {...attributes}
+        className='cursor-grab active:cursor-grabbing p-4 bg-white/20 rounded-2xl shadow-md mb-4'
     >
         {/* Section header */}
-    <div>
-        <h2>{section.title}</h2>
+    <div className='flex justify-between items-center mb-3'>
+        <h2 className='text-xl font-semibold'>{section.title}</h2>
         <button
             onClick={() => deleteSection(section.id)}
+            className='text-red-500 hover:text-red-700 font-bold'
         >
             X
         </button>
     </div>
 
     {/* Task lista */}
-    <div>
+    <div className='mb-3'>
         {section.tasks.length === 0 ? (
-            <p>No tasks yet...</p>) : (
+            <p className='text-gray-400 italic'>No tasks yet...</p>) : (
                 section.tasks.map((t) => (
                     <div
                         key={t.id}
+                        className='flex justify-between items-center bg-black/30 rounded-lg p-2 mb-2'
                     >
                         <span>{t.text}</span>
                         <button
