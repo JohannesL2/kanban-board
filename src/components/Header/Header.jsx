@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import GuideModal from '../GuideModal/GuideModal.jsx'
+import SettingsModal from '../SettingsModal/SettingsModal.jsx';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false)
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
 
   return (
@@ -13,9 +15,10 @@ export default function Header() {
 
     <div className='flex items-center justify-center gap-4 mt-12'>
         <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsOpen(true)}>How to use</button>
-        <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer'>Settings</button>
+        <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsSettingsOpen(true)}>Settings</button>
 
         <GuideModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
     </div>
 </header>
   )
