@@ -14,7 +14,9 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
         transition,
     };
 
-    const handleAddTask = () => {
+    const handleAddTask = (e) => {
+        e.stopPropagation();
+        if (task.trim() === "") return;
         addTask(section.id, task);
         setTask("");
     };
@@ -22,16 +24,25 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
     <div
         ref={setNodeRef}
         style={style}
+        className='p-4 bg-white/20 rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm'
+    >
+
+        {/* Section header */}
+<div className='flex justify-between items-center mb-3'>
+    {/* Drag handle */}
+    <div className='flex items-center gap-2 cursor-grab active:cursor-grabbing'
         {...listeners}
         {...attributes}
-        className='cursor-grab active:cursor-grabbing touch-none p-4 bg-white/20 rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm'
-    >
-        {/* Section header */}
-    <div className='flex justify-between items-center mb-3'>
+    >   <span className='text-lg text-gray-400'>☰</span>
         <h2 className='text-lg sm:text-xl font-semibold break-words'>{section.title}</h2>
+    </div>
+        {/* Delete button */}
         <button
-            onClick={() => deleteSection(section.id)}
-            className='text-red-500 hover:text-red-700 font-bold'
+            onClick={(e) => {
+                e.stopPropagation();
+                deleteSection(section.id)
+            }}
+            className='text-red-500 hover:text-red-700 font-bold cursor-pointer'
         >
             X
         </button>
@@ -58,7 +69,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
     </div>
 
     {/* Add task */}
-    <div className="flex gap-2 flex-col sm:flex-row">
+    <div className="flex gap-2 flex-col">
             <input 
                 type="text" 
                 value={task}
