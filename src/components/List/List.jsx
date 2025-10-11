@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DndContext, closestCenter } from '@dnd-kit/core';
+import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import {
     SortableContext,
     verticalListSortingStrategy,
@@ -70,6 +70,15 @@ export default function List() {
     setSections(newSections);
   };
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+        activationConstraint: {
+            distance: 5,
+        },
+    })
+  );
+
   return (
     <div className='min-h-screen p-4 w-full'>
 <div className='flex justify-center mb-10'>
@@ -96,7 +105,7 @@ export default function List() {
           
 {/* DND KIT Wrapping */}
 
-<DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
     <SortableContext
         items={sections.map(s => s.id)}
         strategy={verticalListSortingStrategy}

@@ -24,11 +24,11 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
         style={style}
         {...listeners}
         {...attributes}
-        className='cursor-grab active:cursor-grabbing p-4 bg-white/20 rounded-2xl shadow-md mb-4'
+        className='cursor-grab active:cursor-grabbing touch-none p-4 bg-white/20 rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm'
     >
         {/* Section header */}
     <div className='flex justify-between items-center mb-3'>
-        <h2 className='text-xl font-semibold'>{section.title}</h2>
+        <h2 className='text-lg sm:text-xl font-semibold break-words'>{section.title}</h2>
         <button
             onClick={() => deleteSection(section.id)}
             className='text-red-500 hover:text-red-700 font-bold'
@@ -40,7 +40,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
     {/* Task lista */}
     <div className='mb-3'>
         {section.tasks.length === 0 ? (
-            <p className='text-gray-400 italic'>No tasks yet...</p>) : (
+            <p className='text-gray-400 italic text-sm sm:text-base'>No tasks yet...</p>) : (
                 section.tasks.map((t) => (
                     <div
                         key={t.id}
@@ -58,7 +58,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
     </div>
 
     {/* Add task */}
-    <div className="flex gap-2">
+    <div className="flex gap-2 flex-col sm:flex-row">
             <input 
                 type="text" 
                 value={task}
