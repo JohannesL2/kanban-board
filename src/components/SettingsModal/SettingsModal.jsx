@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 
-export default function SettingsModal({isOpen, onClose}) {
+export default function SettingsModal({isOpen, onClose, resetBoard}) {
   return (
     <>
       <Dialog open={isOpen} onClose={onClose} className="relative z-10 focus:outline-none">
@@ -19,6 +19,18 @@ export default function SettingsModal({isOpen, onClose}) {
                     <span>Dark mode</span>
                     <input type="checkbox" className='accent-green-400'/>
                 </div>
+                
+                <Button
+                  className="bg-red-600 hover:bg-red-700 text-white rounded-md px-3 py-2"
+                  onClick={() => {
+                    if (confirm("Are you sure you want to reset the board? This cannot be undone.")) {
+                      resetBoard();
+                      onClose();
+                    }
+                  }}
+                >
+                  🔄 Reset Board
+                </Button>
 
             <p className='text-red-500 text-xl mt-5'>some functions may not be available yet</p>
             </div>

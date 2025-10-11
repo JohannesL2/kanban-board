@@ -7,9 +7,8 @@ import {
 } from "@dnd-kit/sortable";
 import Section from '../Section';
 
-export default function List() {
+export default function List({ sections, setSections }) {
   const [title, setTitle] = useState("")
-  const [sections, setSections] = useState([])
   const [message, setMessage] = useState("")
 
   const createSection = (e) => {
