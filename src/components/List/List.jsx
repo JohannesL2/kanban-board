@@ -1,4 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import {
+    SortableContext,
+    verticalListSortingStrategy,
+    arrayMove
+} from "@dnd-kit/sortable";
+import Section from '../Section';
 
 export default function List() {
   const [title, setTitle] = useState("")
@@ -17,12 +24,13 @@ export default function List() {
     setSections([...sections, newSection])
     setTitle("")
     setMessage("")
-  }
+  };
 
   const addTask = (sectionId, taskText) => {
-    if (taskText.trim() === "") return
+    if (taskText.trim() === "") return;
 
-    setSections(sections.map(section => {
+    setSections(
+        sections.map(section => {
         if (section.id === sectionId) {
             return {
                 ...section,
@@ -49,16 +57,29 @@ export default function List() {
     setSections(sections.filter(section => section.id !== sectionId))
   }
 
+  const handleDragEnd = (e) => {
+    const { active, over } = e;
+    if (!over || active.id === over.id) return;
+
+    const oldI = sections.findIndex((s) => s.id === active.id);
+    const newI = sections.findIndex((s) => s.id === over.id);
+
+    const newSections = [...sections];
+    const [moved] = newSections.splice(oldI, 1);
+    newSections.splice(newI, 0, moved);
+    setSections(newSections);
+  };
+
   return (
     <div className='min-h-screen p-6'>
 <div className='flex justify-center mb-10'>
-    <form onSubmit={createSection} className='flex items-center gap-4 bg-white p-6 rounded-2xl shadow-lg'>
+    <form onSubmit={createSection} className='flex items-center gap-12  bg-white/20 p-4 rounded-2xl shadow-lg'>
       <div className="flex flex-col flex-grow gap-2">
         <input 
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className='bg-gray-100 p-4 text-2xl'
+          className='bg-white/40 rounded-2xl p-4 text-2xl'
           placeholder='type a title'
           />
 
@@ -73,80 +94,26 @@ export default function List() {
     </form>
     </div>
           
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {sections.map((section) => (
-                <Section
-                    key={section.id}
-                    section={section}
-                    addTask={addTask}
-                    deleteTask={deleteTask}
-                    deleteSection={deleteSection}
-                />
-            ))}
-          </div>
-        </div>
-  )
-}
+{/* DND KIT Wrapping */}
 
-function Section({section, addTask, deleteTask, deleteSection}) {
-    const [task, setTask] = useState("")
-
-    const handleAddtask = () => {
-        addTask(section.id, task)
-        setTask("")
-    }
-
-    return (
-        <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col">
-            {/* Section header */}
-            <div className='flex justify-between items-center mb-4'>
-            <h2 className='text-4xl font-semibold mb-4 text-gray-800 font-smooch'>{section.title}</h2>
-            <button
-                onClick={() => deleteSection(section.id)}
-                className='text-red-500 hover:text-red-700 font-bold text-3xl cursor-pointer'
-            >
-              x
-            </button>
-            </div>
-
-            {/* Task lista */}
-            <div className='flex-grow mb-4'>
-                {section.tasks.length === 0 ? (
-                    <p className='text-gray-400 italic'>No tasks yet...</p>
-                ) : (
-                    section.tasks.map((t) => (
-                        <div 
-                        key={t.id}
-                        className='p-2 bg-gray-100 rounded-md mb-2 text-gray-700'
-                        >
-                            <span className='text-2xl font-medium p-4'>{t.text}</span>
-                            <button
-                              onClick={() => deleteTask(section.id, t.id)}
-                              className='text-red-500 hover:text-red-700 font-bold text-3xl cursor-pointer'
-                            >
-                                x
-                            </button>
-                        </div>
-                    ))
-                )}
-            </div>
-
-<div className="flex gap-2">
-            <input 
-                type="text" 
-                value={task}
-                onChange={(e) => setTask(e.target.value)}
-                placeholder='Add task'
-                className='flex-grow border rounded-lg p-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-400'
+<DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+    <SortableContext
+        items={sections.map(s => s.id)}
+        strategy={verticalListSortingStrategy}
+    >
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        {sections.map((section) => (
+            <Section
+                key={section.id}
+                section={section}
+                addTask={addTask}
+                deleteTask={deleteTask}
+                deleteSection={deleteSection}
             />
-
-            <button
-                onClick={handleAddtask}
-                className='bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition cursor-pointer'
-            >
-                Add Task
-            </button>
-            </div>
+        ))}
         </div>
+        </SortableContext>
+    </DndContext>
+</div>
     )
 }
