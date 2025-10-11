@@ -71,9 +71,9 @@ export default function List() {
   };
 
   return (
-    <div className='min-h-screen p-4 w-full overflow-x-hidden'>
+    <div className='min-h-screen p-4 w-full'>
 <div className='flex justify-center mb-10'>
-    <form onSubmit={createSection} className='flex items-center gap-12  bg-white/20 p-4 rounded-2xl shadow-lg'>
+    <form onSubmit={createSection} className='flex flex-col sm:flex-row items-center gap-4  bg-white/20 p-4 rounded-2xl shadow-lg w-full max-w-3xl'>
       <div className="flex flex-col flex-grow gap-2">
         <input 
           type="text"
@@ -101,7 +101,7 @@ export default function List() {
         items={sections.map(s => s.id)}
         strategy={verticalListSortingStrategy}
     >
-    <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {sections.map((section) => (
             <Section
                 key={section.id}
