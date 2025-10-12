@@ -1,5 +1,8 @@
 # 📝 Kanban board
 
+![Build Status](https://github.com/JohannesL2/kanban-board/actions/workflows/ci.yml/badge.svg)
+
+
 ![App Screenshot](./src/assets/kanban-board.png)
 
 > A simple kanban board built with **React** and **Tailwind CSS**. Create sections, add tasks, and remove them when completed! ✅
