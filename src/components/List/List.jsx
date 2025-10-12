@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import {
     SortableContext,
-    verticalListSortingStrategy,
-    arrayMove
+    verticalListSortingStrategy
 } from "@dnd-kit/sortable";
 import Section from '../Section';
 
