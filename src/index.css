@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
     font-family: Smooch Sans;
     src: url("./assets/smooch-sans-font.ttf");

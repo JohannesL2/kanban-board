@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import GuideModal from '@/components/GuideModal';
 import SettingsModal from '@/components/SettingsModal';
 import { FaGithub } from 'react-icons/fa';
+import DarkModeToggle from '@/components/DarkModeToggle';
 
 export default function Header({ resetBoard }) {
     const [isOpen, setIsOpen] = useState(false)
@@ -25,6 +26,7 @@ export default function Header({ resetBoard }) {
         </a>
         <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsOpen(true)}>How to use</button>
         <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsSettingsOpen(true)}>Settings</button>
+        <DarkModeToggle/>
 
         <GuideModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} resetBoard={resetBoard} />
