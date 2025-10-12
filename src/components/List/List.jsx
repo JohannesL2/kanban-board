@@ -4,7 +4,7 @@ import {
     SortableContext,
     verticalListSortingStrategy
 } from "@dnd-kit/sortable";
-import Section from '../Section';
+import Section from '@/components/Section';
 
 export default function List({ sections, setSections }) {
   const [title, setTitle] = useState("")

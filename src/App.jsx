@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import Header from './components/Header/Header'
-import List from './components/List/List'
+import Header from '@/components/Header';
+import List from '@/components/List';
 
 function App({setTitle, setMessage}) {
   const [sections, setSections] = useState([]);

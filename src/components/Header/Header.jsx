@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import GuideModal from '../GuideModal/GuideModal.jsx'
-import SettingsModal from '../SettingsModal/SettingsModal.jsx';
+import GuideModal from '@/components/GuideModal';
+import SettingsModal from '@/components/SettingsModal';
 import { FaGithub } from 'react-icons/fa';
 
 export default function Header({ resetBoard }) {
