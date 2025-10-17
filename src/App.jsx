@@ -14,7 +14,7 @@ function App({setTitle, setMessage}) {
 
   return (
     <div>
-    <main className='dark:bg-zinc-800'>
+    <main className='min-h-screen w-full bg-zinc-300 dark:bg-zinc-800 transition-colors duration-500'>
     <Header resetBoard={resetBoard} />
     <List sections={sections} setSections={setSections}/>
     </main>
