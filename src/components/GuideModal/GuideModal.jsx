@@ -13,7 +13,7 @@ export default function GuideModal({isOpen, onClose}) {
               <DialogTitle as="h3" className="text-base/7 font-medium text-white">
                 How to use:
               </DialogTitle>
-             <p className="mt-2 text-sm/6 text-white/50">
+             <p className="mt-2 text-sm/6 text-white/50 dark:text-white">
   Welcome to your Kanban Board! <br /><br />
   1. Organize your workflow by creating sections like <strong>Backlog</strong> and <strong>Work in Progress</strong>.<br />
   2. Add tasks to each section using the "+" button.<br />
