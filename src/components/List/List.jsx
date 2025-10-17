@@ -80,13 +80,13 @@ export default function List({ sections, setSections }) {
   return (
     <div className='min-h-screen p-4 w-full'>
 <div className='flex justify-center mb-10'>
-    <form onSubmit={createSection} className='flex flex-col sm:flex-row items-center gap-4  bg-white/20 p-4 rounded-2xl shadow-lg w-full max-w-3xl'>
+    <form onSubmit={createSection} className='flex flex-col sm:flex-row items-center gap-4  bg-white/20 p-4 rounded-2xl shadow-lg w-full max-w-3xl dark:bg-zinc-300'>
       <div className="flex flex-col flex-grow gap-2">
         <input 
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg sm:text-2xl'
+          className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg sm:text-2xl dark:bg-white'
           placeholder='type a title'
           />
 
