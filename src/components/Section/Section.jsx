@@ -24,7 +24,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
     <div
         ref={setNodeRef}
         style={style}
-        className='p-4 bg-white/20 rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm'
+        className='p-4 bg-white/20 dark:bg-white rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm'
     >
 
         {/* Section header */}
@@ -55,7 +55,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
                 section.tasks.map((t) => (
                     <div
                         key={t.id}
-                        className='flex justify-between items-center bg-black/30 rounded-lg p-2 mb-2'
+                        className='flex justify-between items-center bg-black/30 dark:bg-black/5 rounded-lg p-2 mb-2'
                     >
                         <span>{t.text}</span>
                         <button
