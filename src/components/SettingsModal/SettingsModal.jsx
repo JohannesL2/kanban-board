@@ -15,14 +15,14 @@ export default function SettingsModal({isOpen, onClose, resetBoard}) {
                 ⚙️ Settings
               </DialogTitle>
 
-            <div className='space-y-4 text-white/80 text-sm'>
+            <div className='space-y-4 text-white/80 text-sm mt-4'>
                 <div className='flex justify-between items-center'>
-                    <p>Dark mode toggle:</p>
-                    <span className='bg-black rounded-xl border-2 mt-2 p-4'><DarkModeToggle/></span>
+                    <p className='text-white text-xl'>Dark mode toggle:</p>
+                    <span className='bg-black rounded-xl border-2 p-4'><DarkModeToggle/></span>
                 </div>
                 
                 <Button
-                  className="bg-red-600 hover:bg-red-700 text-white rounded-md px-3 py-2"
+                  className="bg-red-600 hover:bg-red-700 text-white rounded-md px-3 py-2 mt-4"
                   onClick={() => {
                     if (confirm("Are you sure you want to reset the board? This cannot be undone.")) {
                       resetBoard();
