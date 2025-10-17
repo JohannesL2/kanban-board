@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import {
     SortableContext,
@@ -9,6 +9,28 @@ import Section from '@/components/Section';
 export default function List({ sections, setSections }) {
   const [title, setTitle] = useState("")
   const [message, setMessage] = useState("")
+  const [placeholder, setPlaceholder] = useState("type a title");
+
+  const placeholderExamples = [
+  "Backlog 🧠",
+  "To Do ✏️",
+  "In Progress ⚙️",
+  "Review 👀",
+  "Done ✅",
+  "Bugs 🐞",
+  "Ideas 💡",
+  "Testing 🧪",
+  "Blocked 🚧"
+  ];
+
+  useEffect(() => {
+    const i = setInterval(() => {
+      const r = placeholderExamples[Math.floor(Math.random() * placeholderExamples.length)]
+      setPlaceholder(r)
+    }, 3000);
+
+    return () => clearInterval(i);
+  }, [])
 
   const createSection = (e) => {
     e.preventDefault();
@@ -77,6 +99,13 @@ export default function List({ sections, setSections }) {
     })
   );
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      setTitle(placeholder);
+    }
+  };
+
   return (
     <div className='min-h-screen p-4 w-full'>
 <div className='flex justify-center mb-10'>
@@ -86,8 +115,9 @@ export default function List({ sections, setSections }) {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          onKeyDown={handleKeyDown}
           className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg sm:text-2xl dark:bg-white'
-          placeholder='type a title'
+          placeholder={placeholder}
           />
         </div>
           <button
