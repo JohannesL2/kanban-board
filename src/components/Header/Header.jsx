@@ -12,7 +12,7 @@ export default function Header({ resetBoard }) {
   return (
 <header>
     <div>
-        <h1 className='font-smooch text-5xl text-white tracking-wide drop-shadow-md'>Kanban Board</h1>
+        <h1 className='font-smooch text-5xl bg-zinc-300 text-zinc-800 font-extrabold dark:bg-zinc-800 dark:text-white py-8 text-white tracking-wide transition-colors duration-500'>Kanban Board</h1>
     </div>
 
     <div className='flex items-center justify-center gap-4 mt-12'>
