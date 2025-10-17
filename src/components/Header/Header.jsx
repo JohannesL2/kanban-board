@@ -20,7 +20,7 @@ export default function Header({ resetBoard }) {
           href="https://github.com/JohannesL2/kanban-board"
           target='_blank'
           rel='noopener noreferrer'
-          className='text-gray-500 hover:text-black transition'
+          className='text-gray-500 dark:text-white hover:text-black transition'
         >
           <FaGithub size={38} />
         </a>
