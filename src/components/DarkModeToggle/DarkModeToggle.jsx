@@ -1,30 +1,32 @@
 import { LuMoon, LuSun } from "react-icons/lu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function DarkModeToggle() {
-    const [ theme, setTheme ] = useState('');
+    const [darkMode, setDarkMode] = useState(() => {
+        if (typeof window !== "undefined") {
+            const saved = localStorage.getItem("theme");
+            if (saved) return saved === "dark";
+            return window.matchMedia("(prefers-color-scheme: dark").matches;
+        }
+        return false;
+    });
+
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "");
+        }
+    }, [darkMode])
 
   return (
-    <div className={`${theme ? "dark" : ""} grid place-items-center`}>
-        <div className="bg-white/50 dark:bg-zinc-800 p-2 rounded-xl">
             <button 
             className="bg-transparent p-3 hover:bg-black/10 rounded-lg cursor-pointer dark:hover:bg-zinc-100/10 dark:text-white"
-                onClick={() => {
-                    setTheme('')
-                }}
+                onClick={() => setDarkMode(!darkMode)}
             >
-                <LuSun/>
+                {darkMode ? <LuSun className="text-2xl"/> : <LuMoon className="text-2xl" />}
             </button>
-
-            <button 
-            className="bg-transparent p-3 hover:bg-black/10 rounded-lg cursor-pointer dark:hover:bg-zinc-100/10 dark:text-white"
-                onClick={() => {
-                    setTheme('dark')
-                }}
-            >
-                <LuMoon/>
-            </button>
-        </div>
-    </div>
   )
 }

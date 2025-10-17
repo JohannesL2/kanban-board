@@ -13,10 +13,12 @@ function App({setTitle, setMessage}) {
   };
 
   return (
-    <>
+    <div>
+    <main className='dark:bg-zinc-800'>
     <Header resetBoard={resetBoard} />
     <List sections={sections} setSections={setSections}/>
-    </>
+    </main>
+    </div>
   )
 }
 
