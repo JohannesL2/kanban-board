@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import {
     SortableContext,
@@ -9,7 +9,9 @@ import Section from '@/components/Section';
 export default function List({ sections, setSections }) {
   const [title, setTitle] = useState("")
   const [message, setMessage] = useState("")
-  const [placeholder, setPlaceholder] = useState("type a title");
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef(null);
 
   const placeholderExamples = [
   "Backlog 🧠",
@@ -23,14 +25,23 @@ export default function List({ sections, setSections }) {
   "Blocked 🚧"
   ];
 
-  useEffect(() => {
-    const i = setInterval(() => {
-      const r = placeholderExamples[Math.floor(Math.random() * placeholderExamples.length)]
-      setPlaceholder(r)
-    }, 3000);
+  const placeholder = placeholderExamples[placeholderIndex];
 
-    return () => clearInterval(i);
-  }, [])
+  useEffect(() => {
+    if (!isPaused) {
+      intervalRef.current = setInterval(() => {
+        setPlaceholderIndex(prev => (prev + 1) % placeholderExamples.length);
+      }, 3000);
+    }
+
+    return () => clearInterval(intervalRef.current);
+  }, [isPaused]);
+
+  const pauseRotation = () => {
+    setIsPaused(true);
+    clearInterval(intervalRef.current);
+    setTimeout(() => setIsPaused(false), 6000);
+  };
 
   const createSection = (e) => {
     e.preventDefault();
@@ -103,6 +114,14 @@ export default function List({ sections, setSections }) {
     if (e.key === "Tab") {
       e.preventDefault();
       setTitle(placeholder);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      pauseRotation();
+      setPlaceholderIndex(prev => (prev + 1) % placeholderExamples.length);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      pauseRotation();
+      setPlaceholderIndex(prev => (prev - 1 + placeholderExamples.length) % placeholderExamples.length);
     }
   };
 
