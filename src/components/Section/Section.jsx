@@ -80,7 +80,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
 
             <button
                 onClick={handleAddTask}
-                className='bg-green-500 hover:bg-green-600 dark:bg-black text-white px-4 py-2 rounded-lg transition cursor-pointer'
+                className='bg-green-500 hover:bg-green-600 dark:bg-zinc-700 dark:hover:bg-zinc-800 text-white px-4 py-2 rounded-lg transition cursor-pointer'
             >
                 Add Task
             </button>
