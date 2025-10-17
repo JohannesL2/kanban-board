@@ -89,10 +89,6 @@ export default function List({ sections, setSections }) {
           className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg sm:text-2xl dark:bg-white'
           placeholder='type a title'
           />
-
-        {message && (
-        <p className='text-red-400 text-xl font-semibold'>{message}</p>
-        )}
         </div>
           <button
           type='submit'
@@ -100,6 +96,10 @@ export default function List({ sections, setSections }) {
           >+</button>
     </form>
     </div>
+
+    {message && (
+        <p className='text-red-400 text-xl font-semibold mb-8'>{message}</p>
+        )}
           
 {/* DND KIT Wrapping */}
 
