@@ -138,12 +138,28 @@ export default function List({ sections, setSections }) {
           className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg sm:text-2xl dark:bg-white'
           placeholder={placeholder}
           />
+          <div className='flex flex-wrap gap-4 mt-2 text-sm text-gray-700 dark:text-gray-800'>
+            <span className='flex items-center gap-1'>
+            Press <kbd className="kbd kbd-sm">Tab</kbd>
+            to fill placeholder
+            </span>
+            <span className='flex items-center gap-1'>
+            Press <kbd className="kbd kbd-sm">◀︎</kbd>
+            to choose previous placeholder
+            </span>
+            <span className='flex items-center gap-1'>
+            Press <kbd className="kbd kbd-sm">▶︎</kbd>
+            to choose next placeholder
+            </span>
+          </div>
         </div>
           <button
           type='submit'
           className='flex items-center justify-center w-12 h-12 text-white text-4xl rounded-full bg-blue-500 hover:bg-blue-600 dark:bg-zinc-700 dark:hover:bg-zinc-800 shadow-md transition-transform transform hover:scale-110 leading-none pb-[5px] font-semibold cursor-pointer'
           >+</button>
     </form>
+    
+    {/*Tell the user how to use the tab and arrow keys shortcuts here, import small keyboard icons*/}
     </div>
 
     {message && (
