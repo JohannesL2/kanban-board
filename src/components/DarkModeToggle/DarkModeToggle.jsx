@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function DarkModeToggle() {
     const [darkMode, setDarkMode] = useState(() => {
-        if (typeof window !== "undefined") {
+        if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
             const saved = localStorage.getItem("theme");
             if (saved) return saved === "dark";
             return window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -12,12 +12,14 @@ export default function DarkModeToggle() {
     });
 
     useEffect(() => {
+        if (typeof window === "undefined") return;
+
         if (darkMode) {
             document.documentElement.classList.add("dark");
             localStorage.setItem("theme", "dark");
         } else {
             document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "");
+            localStorage.setItem("theme", "light");
         }
     }, [darkMode])
 
