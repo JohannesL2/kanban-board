@@ -24,8 +24,8 @@ export default function Header({ resetBoard }) {
         >
           <FaGithub size={32} />
         </a>
-        <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsOpen(true)}>How to use</button>
-        <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsSettingsOpen(true)}>Settings</button>
+        <button className='px-4 py-2 bg-black/20 text-white dark:bg-zinc-200 dark:hover:bg-zinc-300 dark:text-black transition rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsOpen(true)}>How to use</button>
+        <button className='px-4 py-2 bg-black/20 text-white dark:bg-zinc-200 dark:hover:bg-zinc-300 dark:text-black transition rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsSettingsOpen(true)}>Settings</button>
         <DarkModeToggle/>
 
         <GuideModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
