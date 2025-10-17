@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
 export default function SettingsModal({isOpen, onClose, resetBoard}) {
   return (
@@ -16,8 +17,8 @@ export default function SettingsModal({isOpen, onClose, resetBoard}) {
 
             <div className='space-y-4 text-white/80 text-sm'>
                 <div className='flex justify-between items-center'>
-                    <span>Dark mode</span>
-                    <input type="checkbox" className='accent-green-400'/>
+                    <p>Dark mode toggle:</p>
+                    <span className='bg-black rounded-xl border-2 mt-2 p-4'><DarkModeToggle/></span>
                 </div>
                 
                 <Button
