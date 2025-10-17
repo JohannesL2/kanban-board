@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from '@/components/Header';
 import List from '@/components/List';
 
 function App({setTitle, setMessage}) {
-  const [sections, setSections] = useState([]);
+  const [sections, setSections] = useState(() => {
+    const saved = localStorage.getItem('sections');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('sections', JSON.stringify(sections));
+  }, [sections]);
 
     const resetBoard = () => {
     setSections([]);

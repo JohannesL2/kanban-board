@@ -22,7 +22,7 @@ export default function Header({ resetBoard }) {
           rel='noopener noreferrer'
           className='text-gray-500 dark:text-white dark:hover:text-gray-300 hover:text-black transition'
         >
-          <FaGithub size={38} />
+          <FaGithub size={32} />
         </a>
         <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsOpen(true)}>How to use</button>
         <button className='px-4 py-2 bg-black/20 text-white rounded-xl hover:bg-black/30 transition cursor-pointer' onClick={() => setIsSettingsOpen(true)}>Settings</button>
