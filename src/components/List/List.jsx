@@ -4,6 +4,7 @@ import {
     SortableContext,
     verticalListSortingStrategy
 } from "@dnd-kit/sortable";
+import { arrayMove } from '@dnd-kit/sortable';
 import Section from '@/components/Section';
 
 export default function List({ sections, setSections }) {
@@ -89,16 +90,75 @@ export default function List({ sections, setSections }) {
   }
 
   const handleDragEnd = (e) => {
-    const { active, over } = e;
-    if (!over || active.id === over.id) return;
+    const {active, over} = e;
+    if (!over) return;
 
-    const oldI = sections.findIndex((s) => s.id === active.id);
-    const newI = sections.findIndex((s) => s.id === over.id);
+    const activeId = active.id;
+    const overId = over.id;
 
-    const newSections = [...sections];
-    const [moved] = newSections.splice(oldI, 1);
-    newSections.splice(newI, 0, moved);
-    setSections(newSections);
+    const isSectionDrag = sections.some((s) => s.id === activeId);
+
+    if (isSectionDrag) {
+      if (activeId === overId) return;
+
+      const oldI = sections.findIndex((s) => s.id === activeId);
+      const newI = sections.findIndex((s) => s.id === overId);
+      const newSections = arrayMove(sections, oldI, newI);
+      setSections(newSections);
+      return;
+    }
+
+    const findSection = (taskId) => {
+      for (const section of sections) {
+        if (section.tasks.find((t) => t.id === taskId)) {
+          return section;
+        }
+      }
+    };
+
+    const sourceSection = findSection(activeId);
+    const destinationSection = 
+      findSection(overId) || sections.find((s) => s.id === overId);
+
+    if (!sourceSection || !destinationSection) return;
+
+    const activeTask = sourceSection.tasks.find((t) => t.id === activeId);
+
+    if (sourceSection.id !== destinationSection.id) {
+      setSections((prev) => 
+        prev.map((section) => {
+          if (section.id === sourceSection.id) {
+            return {
+              ...section,
+              tasks: section.tasks.filter((t) => t.id !== activeId),
+            };
+          }
+          if (section.id === destinationSection.id) {
+            return {
+              ...section,
+              tasks: [...section.tasks, activeTask],
+            };
+          }
+          return section;
+        })
+      );
+    } else {
+      const oldI = sourceSection.tasks.findIndex((t) => t.id === activeId);
+      const newI = sourceSection.tasks.findIndex((t) => t.id === overId);
+
+      if (oldI !== newI) {
+        setSections((prev) => 
+          prev.map((section) =>
+            section.id === sourceSection.id
+            ? {
+                ...section,
+                tasks: arrayMove(section.tasks, oldI, newI),
+            }
+            : section
+          )
+        )
+      }
+    }
   };
 
   const sensors = useSensors(
@@ -159,7 +219,6 @@ export default function List({ sections, setSections }) {
           >+</button>
     </form>
     
-    {/*Tell the user how to use the tab and arrow keys shortcuts here, import small keyboard icons*/}
     </div>
 
     {message && (
