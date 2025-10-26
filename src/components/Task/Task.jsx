@@ -50,7 +50,7 @@ export default function Task({ task, sectionId, deleteTask }) {
 
             <span
                 className={`${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
-                    bold ? "font-bold" : "font-normal"
+                    bold ? "font-bold dark:text-white" : "font-normal dark:text-white"
                 }`}
             >
                 {task.text}
@@ -69,7 +69,7 @@ export default function Task({ task, sectionId, deleteTask }) {
             <select
                 value={fontSize}
                 onChange={handleFontSizeChange}
-                className='border rounded px-2 py-1 text-sm'
+                className='border rounded px-2 py-1 text-sm dark:text-white'
             >
                 <option value="xs">XS</option>
                 <option value="sm">SM</option>
