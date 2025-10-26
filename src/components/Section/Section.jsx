@@ -1,16 +1,22 @@
 import React, { useState} from 'react';
 import { CSS } from "@dnd-kit/utilities";
 import Task from '@/components/Task';
-import { useDroppable } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { FaZ } from 'react-icons/fa6';
 
 export default function Section({ section, addTask, deleteTask, deleteSection }) {
     const [task, setTask] = useState("");
 
-    const { setNodeRef, isOver } = useDroppable({
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: section.id,
-    })
+    });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        touchAction: "none",
+        opacity: isDragging ? 0.6 : 1,
+    };
     
     const handleAddTask = (e) => {
         e.stopPropagation();
@@ -22,14 +28,15 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
   return (
     <div
         ref={setNodeRef}
+        style={style}
         className={`p-4 bg-white/20 dark:bg-white rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm transition
-            ${isOver ? "bg-green-200/40" : "bg-white/20 dark:bg-white/10"}`}
+            ${isDragging ? "bg-green-200/40" : "bg-white/20 dark:bg-white/10"}`}
         >
 
         {/* Section header */}
 <div className='flex justify-between items-center mb-3'>
     {/* Drag handle */}
-    <div className='flex items-center gap-2 cursor-grab active:cursor-grabbing'>   <span className='text-lg text-gray-400'>☰</span>
+    <div {...listeners} {...attributes} className='flex items-center gap-2 cursor-grab active:cursor-grabbing select-none'>   <span className='text-lg text-gray-400'>☰</span>
         <h2 className='text-lg sm:text-xl font-semibold break-words dark:text-white'>{section.title}</h2>
     </div>
         {/* Delete button */}
