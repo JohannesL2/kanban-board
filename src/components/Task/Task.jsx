@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-export default function Task({ task, sectionId, deleteTask }) {
+export default function Task({ task, sectionId, deleteTask, updateTask }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id: task.id,
         data: { sectionId },
@@ -43,8 +43,8 @@ export default function Task({ task, sectionId, deleteTask }) {
         style={style}
         className='flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 cursor-grab active:cursor-grabbing'
         >
-        <div className='flex justify-between items-center'>
-            <div {...listeners} {...attributes} className='cursor-grab p-1'>
+        <div className='flex justify-between items-center gap-2'>
+            <div {...listeners} {...attributes} className='cursor-grab p-1 select-none text-gray-500'>
                 ☰
             </div>
 
@@ -60,16 +60,17 @@ export default function Task({ task, sectionId, deleteTask }) {
                 e.stopPropagation();
                 deleteTask(sectionId, task.id);
             }}
+            className='text-red-500 hover:text-red-700 font-bold px-2'
                 >
                 X
                 </button>
             </div>
 
-        <div className='flex justify-end gap-2 mt-2'>
+        <div className='flex justify-end gap-2 mt-2 bg-white/60 dark:bg-black/20 p-2 rounded-md'>
             <select
                 value={fontSize}
                 onChange={handleFontSizeChange}
-                className='border rounded px-2 py-1 text-sm dark:text-white'
+                className='border rounded px-2 py-1 text-sm dark:text-white dark:bg-black/40'
             >
                 <option value="xs">XS</option>
                 <option value="sm">SM</option>

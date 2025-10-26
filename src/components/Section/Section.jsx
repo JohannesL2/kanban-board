@@ -30,7 +30,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
 <div className='flex justify-between items-center mb-3'>
     {/* Drag handle */}
     <div className='flex items-center gap-2 cursor-grab active:cursor-grabbing'>   <span className='text-lg text-gray-400'>☰</span>
-        <h2 className='text-lg sm:text-xl font-semibold break-words'>{section.title}</h2>
+        <h2 className='text-lg sm:text-xl font-semibold break-words dark:text-white'>{section.title}</h2>
     </div>
         {/* Delete button */}
         <button
@@ -79,7 +79,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
 
             <button
                 onClick={handleAddTask}
-                className='bg-green-500 hover:bg-green-600 dark:bg-zinc-700 dark:hover:bg-zinc-800 text-white px-4 py-2 rounded-lg transition cursor-pointer'
+                className='bg-green-500 hover:bg-green-600 dark:bg-zinc-100 dark:hover:bg-zinc-200 dark:text-black text-white font-bold px-4 py-2 rounded-lg transition cursor-pointer'
             >
                 Add Task
             </button>
