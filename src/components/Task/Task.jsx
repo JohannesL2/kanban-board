@@ -19,6 +19,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(task.text);
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const handleTextChange = (e) => setText(e.target.value);
 
@@ -67,11 +68,11 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         style={style}
         className={`flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 ${isEditing ? "" : "cursor-grab active:cursor-grabbing"} border-2 ${priorityColor}`}
         >
-        <div className='flex justify-between items-center gap-2'>
+        <div className='flex justify-between items-center gap-2 flex-1'>
             <div {...listeners} {...attributes} className='cursor-grab p-1 select-none text-gray-500'>
                 ☰
             </div>
-
+    <div className='flex flex-col'>
         {isEditing ? (
             <input
                 value={text}
@@ -94,6 +95,12 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             </span>
         )}
 
+            <span className='text-xs text-gray-400 dark:text-gray-500 mt-1 text-nowrap'>
+                Created: {new Date(task.id).toLocaleDateString()}
+            </span>
+        </div>
+                </div>
+
             <button onClick={(e) => {
                 e.stopPropagation();
                 deleteTask(sectionId, task.id);
@@ -102,8 +109,17 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 >
                 X
                 </button>
-            </div>
 
+            <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMenuOpen(!isMenuOpen);
+                }}
+                className='px-2 py-1 rounded border text-sm dark:text-white dark:bg-black/20'
+            >
+                ⚙️
+            </button>
+{isMenuOpen && (
         <div className='flex justify-end gap-2 mt-2 bg-white/60 dark:bg-black/20 p-2 rounded-md'>
             <select
                 value={fontSize}
@@ -137,6 +153,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 <option value="high">High</option>
             </select>
         </div>
+)}
     </div>
   )
 }
