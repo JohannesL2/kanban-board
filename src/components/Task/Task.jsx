@@ -15,6 +15,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const [fontSize, setFontSize] = useState(task.fontSize || "base");
     const [bold, setBold] = useState(task.bold || false);
+    const [priority, setPriority] = useState(task.priority || "low");
 
     const FONT_SIZE_CLASSES = {
         xs: "text-xs",
@@ -37,11 +38,24 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         updateTask(sectionId, task.id, { bold: newBold });
     };
 
+    const handlePriorityChange = (e) => {
+        const newPriority = e.target.value;
+        setPriority(newPriority);
+        updateTask(sectionId, task.id, { priority: newPriority });
+    };
+
+    const priorityColor = 
+        priority === "high"
+        ? "border-red-500"
+        : priority === "medium"
+        ? "border-yellow-500"
+        : "border-green-500";
+
   return (
     <div
         ref={setNodeRef}
         style={style}
-        className='flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 cursor-grab active:cursor-grabbing'
+        className={`flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 cursor-grab active:cursor-grabbing border-2 ${priorityColor}`}
         >
         <div className='flex justify-between items-center gap-2'>
             <div {...listeners} {...attributes} className='cursor-grab p-1 select-none text-gray-500'>
@@ -88,6 +102,16 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             >
                 B
             </button>
+
+            <select
+                value={priority}
+                onChange={handlePriorityChange}
+                className='border rounded px-2 py-1 text-sm dark:text-white dark:bg-black/40'
+            >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
         </div>
     </div>
   )
