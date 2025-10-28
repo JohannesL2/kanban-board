@@ -65,7 +65,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
     <div
         ref={setNodeRef}
         style={style}
-        className={`flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 cursor-grab active:cursor-grabbing border-2 ${priorityColor}`}
+        className={`flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 ${isEditing ? "" : "cursor-grab active:cursor-grabbing"} border-2 ${priorityColor}`}
         >
         <div className='flex justify-between items-center gap-2'>
             <div {...listeners} {...attributes} className='cursor-grab p-1 select-none text-gray-500'>
@@ -88,7 +88,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 onClick={() => setIsEditing(true)}
                 className={`${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
                     bold ? "font-bold dark:text-white" : "font-normal dark:text-white"
-                }`}
+                } truncate max-w-[200px]`}
             >
                 {text}
             </span>
