@@ -96,8 +96,8 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
             <button
                 onClick={handleBoldToggle}
-                className={`px-2 py-1 rounded border text-sm ${
-                    bold ? "bg-gray-300" : "bg-white"
+                className={`px-2 py-1 rounded border text-sm dark:text-white dark:bg-black/20 ${
+                    bold ? "bg-gray-300 font-bold" : "bg-white"
                 }`}
             >
                 B
