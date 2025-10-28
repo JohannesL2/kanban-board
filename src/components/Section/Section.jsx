@@ -4,7 +4,7 @@ import Task from '@/components/Task';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { FaZ } from 'react-icons/fa6';
 
-export default function Section({ section, addTask, deleteTask, deleteSection }) {
+export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
     const [task, setTask] = useState("");
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
@@ -66,6 +66,7 @@ export default function Section({ section, addTask, deleteTask, deleteSection })
                         task={t}
                         sectionId={section.id}
                         deleteTask={deleteTask}
+                        updateTask={updateTask}
                     />
                 ))
         )}

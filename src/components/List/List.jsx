@@ -185,6 +185,20 @@ export default function List({ sections, setSections }) {
     }
   };
 
+  const updateTask = (sectionId, taskId, updatedFields) => {
+    setSections(prevSections => 
+      prevSections.map(section => {
+        if (section.id !== sectionId) return section;
+          return {
+            ...section,
+            tasks: section.tasks.map(task =>
+              task.id === taskId ? { ...task, ...updatedFields } : task
+            )
+          };
+        })
+    )
+  }
+
   return (
     <div className='min-h-screen p-4 w-full'>
 <div className='flex justify-center mb-10'>
@@ -239,6 +253,7 @@ export default function List({ sections, setSections }) {
                 section={section}
                 addTask={addTask}
                 deleteTask={deleteTask}
+                updateTask={updateTask}
                 deleteSection={deleteSection}
             />
         ))}
