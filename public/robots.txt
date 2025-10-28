@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kanban-board-johannesl2.netlify.app/sitemap.xml
