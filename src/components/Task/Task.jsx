@@ -17,6 +17,16 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
     const [bold, setBold] = useState(task.bold || false);
     const [priority, setPriority] = useState(task.priority || "low");
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [text, setText] = useState(task.text);
+
+    const handleTextChange = (e) => setText(e.target.value);
+
+    const handleTextBlur = () => {
+        setIsEditing(false);
+        updateTask(sectionId, task.id, { text });
+    };
+
     const FONT_SIZE_CLASSES = {
         xs: "text-xs",
         sm: "text-sm",
@@ -62,13 +72,27 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 ☰
             </div>
 
+        {isEditing ? (
+            <input
+                value={text}
+                onChange={handleTextChange}
+                onBlur={handleTextBlur}
+                onKeyDown={(e) => e.key === "Enter" && handleTextBlur()}
+                autoFocus
+                className={`${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
+                    bold ? "font-bold dark:text-white" : "font-normal dark:text-white"
+                } border-b border-gray-300 focus:outline-none`}
+            />
+        ) : (
             <span
+                onClick={() => setIsEditing(true)}
                 className={`${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
                     bold ? "font-bold dark:text-white" : "font-normal dark:text-white"
                 }`}
             >
-                {task.text}
+                {text}
             </span>
+        )}
 
             <button onClick={(e) => {
                 e.stopPropagation();
