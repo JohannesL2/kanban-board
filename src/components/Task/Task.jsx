@@ -115,7 +115,9 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                     e.stopPropagation();
                     setIsMenuOpen(!isMenuOpen);
                 }}
-                className='px-2 py-1 rounded border text-sm dark:text-white dark:bg-black/20 hover:scale-110 transition-transform hover:shadow-md hover:shadow-zinc-500'
+                className={`px-2 py-1 rounded border text-sm dark:text-white dark:bg-black/20 hover:scale-110 transition-transform hover:shadow-md hover:shadow-zinc-500
+                    ${isMenuOpen ? "bg-blue-500 text-white shadow-inner" : "bg-white dark:bg-black/30 text-gray-600 dark:text-white hover:bg-blue-100 dark:hover:bg-black/40"}
+                    `}
             >
                 ⚙️
             </button>
