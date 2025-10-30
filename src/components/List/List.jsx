@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function List({ sections, setSections }) {
   const [title, setTitle] = useState("")
   const [message, setMessage] = useState("")
+  const [shake, setShake] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef(null);
@@ -50,6 +51,9 @@ export default function List({ sections, setSections }) {
 
     if (title.trim() === "") {
         setMessage("⚠️ Error! Needs input for section");
+
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
         return;
     }
 
@@ -211,6 +215,9 @@ export default function List({ sections, setSections }) {
           onChange={(e) => setTitle(e.target.value)}
           onKeyDown={handleKeyDown}
           className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg dark:bg-white'
+          animate={shake ? { x: [0, -10, 10, -10, 10, 0] } : { x: 0 }}
+          transition={{ duration: 0.5 }}
+          placeholder="Write section title..."
           />
 
           {!title && (
