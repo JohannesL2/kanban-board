@@ -6,6 +6,7 @@ import {
 } from "@dnd-kit/sortable";
 import { arrayMove } from '@dnd-kit/sortable';
 import Section from '@/components/Section';
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function List({ sections, setSections }) {
   const [title, setTitle] = useState("")
@@ -174,11 +175,11 @@ export default function List({ sections, setSections }) {
     if (e.key === "Tab") {
       e.preventDefault();
       setTitle(placeholder);
-    } else if (e.key === "ArrowRight") {
+    } else if (e.key === "ArrowUp") {
       e.preventDefault();
       pauseRotation();
       setPlaceholderIndex(prev => (prev + 1) % placeholderExamples.length);
-    } else if (e.key === "ArrowLeft") {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       pauseRotation();
       setPlaceholderIndex(prev => (prev - 1 + placeholderExamples.length) % placeholderExamples.length);
@@ -203,27 +204,46 @@ export default function List({ sections, setSections }) {
     <div className='min-h-screen p-4 w-full'>
 <div className='flex justify-center mb-10'>
     <form onSubmit={createSection} className='flex flex-col sm:flex-row items-center gap-4  bg-white/20 p-4 rounded-2xl shadow-lg w-full max-w-3xl dark:bg-zinc-300'>
-      <div className="flex flex-col flex-grow gap-2">
-        <input 
+      <div className="relative">
+        <motion.input 
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onKeyDown={handleKeyDown}
-          className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg sm:text-2xl dark:bg-white'
-          placeholder={placeholder}
+          className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg dark:bg-white'
           />
+
+          {!title && (
+            <AnimatePresence mode='wait'>
+              <motion.span
+                key={placeholder}
+                initial={{ opacity: 0, y: 10}}
+                animate={{ opacity: 0.5, y: 0 }}
+                exit={{ opacity: 0, y: -10}}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className='absolute left-4 top-4 text-gray-500 pointer-events-none select-none'
+
+              >
+                {placeholder}
+              </motion.span>
+            </AnimatePresence>
+          )}
           <div className='flex flex-wrap gap-4 mt-2 text-sm text-gray-700 dark:text-gray-800'>
             <span className='flex items-center gap-1'>
             Press <kbd className="kbd kbd-sm">Tab</kbd>
             to fill placeholder
             </span>
             <span className='flex items-center gap-1'>
-            Press <kbd className="kbd kbd-sm">◀︎</kbd>
+            Press <kbd className="kbd kbd-sm">▲</kbd>
             to choose previous placeholder
             </span>
             <span className='flex items-center gap-1'>
-            Press <kbd className="kbd kbd-sm">▶︎</kbd>
+            Press <kbd className="kbd kbd-sm">▼</kbd>
             to choose next placeholder
+            </span>
+            <span className='flex items-center gap-1'>
+            Press <kbd className="kbd kbd-sm">Enter</kbd>
+            to add new section
             </span>
           </div>
         </div>
