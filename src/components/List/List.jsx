@@ -15,6 +15,8 @@ export default function List({ sections, setSections }) {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef(null);
+  const [showPlaceholderDropdown, setShowPlaceholderDropdown] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const placeholderExamples = [
   "Backlog 🧠",
@@ -31,14 +33,20 @@ export default function List({ sections, setSections }) {
   const placeholder = placeholderExamples[placeholderIndex];
 
   useEffect(() => {
-    if (!isPaused) {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [])
+
+  useEffect(() => {
+    if (!isPaused && !isMobile) {
       intervalRef.current = setInterval(() => {
         setPlaceholderIndex(prev => (prev + 1) % placeholderExamples.length);
       }, 3000);
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [isPaused]);
+  }, [isPaused, isMobile]);
 
   const pauseRotation = () => {
     setIsPaused(true);
@@ -212,7 +220,10 @@ export default function List({ sections, setSections }) {
         <motion.input 
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            setTitle(e.target.value)
+            setShowPlaceholderDropdown(false);
+          }}
           onKeyDown={handleKeyDown}
           className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg dark:bg-white'
           animate={shake ? { x: [0, -10, 10, -10, 10, 0] } : { x: 0 }}
@@ -220,7 +231,7 @@ export default function List({ sections, setSections }) {
           placeholder="Write section title..."
           />
 
-          {!title && (
+          {!title && !isMobile && (
             <AnimatePresence mode='wait'>
               <motion.span
                 key={placeholder}
@@ -228,13 +239,49 @@ export default function List({ sections, setSections }) {
                 animate={{ opacity: 0.5, y: 0 }}
                 exit={{ opacity: 0, y: -10}}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className='absolute left-4 top-4 text-gray-500 pointer-events-none select-none'
+                className='absolute left-4 top-4 text-gray-500 select-none cursor-pointer'
+                onClick={() => setTitle(placeholder)}
 
               >
                 {placeholder}
               </motion.span>
             </AnimatePresence>
           )}
+
+          {isMobile && !title && (
+            <button
+              type='button'
+              onClick={() => setShowPlaceholderDropdown(prev => !prev)}
+              className='px-3 py-2 bg-gray-200 dark:bg-zinc-600 rounded-xl text-sm'
+            >
+              ✨
+            </button>
+          )}
+          
+        <AnimatePresence>
+          {showPlaceholderDropdown && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className='absolute left-0 top-full mt-1 bg-white dark:bg-zinc-700 border rounded-lg shadow-md z-10 w-full'
+            >
+              {placeholderExamples.map((ph, i) => (
+                <div
+                  key={i}
+                  className='px-4 py-2 hover:bg-gray-200 dark:hover:bg-zinc-600 cursor-pointer'
+                  onClick={() => {
+                    setTitle(ph)
+                    setShowPlaceholderDropdown(false);
+                  }}
+                >
+                  {ph}
+                </div>
+              ))}
+            </motion.div>
+            )}
+        </AnimatePresence>
+
           <div className='flex flex-wrap gap-4 mt-2 text-sm text-gray-700 dark:text-gray-800'>
             <span className='flex items-center gap-1'>
             Press <kbd className="kbd kbd-sm">Tab</kbd>
