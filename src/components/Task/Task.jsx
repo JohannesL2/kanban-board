@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Task({ task, sectionId, deleteTask, updateTask }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
@@ -115,6 +116,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 X
                 </button>
 
+<div className='relative'>
             <button
                 onClick={(e) => {
                     e.stopPropagation();
@@ -126,8 +128,15 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             >
                 ⚙️
             </button>
+<AnimatePresence>
 {isMenuOpen && (
-        <div className='flex justify-end gap-2 mt-2 bg-white/60 dark:bg-black/20 p-2 rounded-md'>
+        <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className='absolute right-0 top-full mt-1 z-10 flex flex-col gap-2 bg-white/90 dark:bg-black/80 backdrop-blur-sm p-2 rounded-md shadow-lg border border-gray-300 dark:border-gray-700'
+            >
             <select
                 value={fontSize}
                 onChange={handleFontSizeChange}
@@ -159,8 +168,10 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-        </div>
+        </motion.div>
 )}
+</AnimatePresence>
+</div>
     </div>
   )
 }
