@@ -25,7 +25,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const handleTextBlur = () => {
         setIsEditing(false);
-        updateTask(sectionId, task.id, { text });
+        updateTask(sectionId, task.id, { text, updatedAt: Date.now() });
     };
 
     const FONT_SIZE_CLASSES = {
@@ -94,6 +94,11 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 {text}
             </span>
         )}
+            {task.updatedAt && (
+                <span className='text-xs text-gray-400 dark:text-gray-500'>
+                    Updated: {new Date(task.updatedAt).toLocaleDateString()}
+                </span>
+            )}
 
             <span className='text-xs text-gray-400 dark:text-gray-500 mt-1 text-nowrap'>
                 Created: {new Date(task.id).toLocaleDateString()}
