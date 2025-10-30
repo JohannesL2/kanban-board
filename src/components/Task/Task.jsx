@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,6 +21,19 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(task.text);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (!e.target.closest('.task-menu')) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, []);
 
     const handleTextChange = (e) => setText(e.target.value);
 
@@ -116,7 +129,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 X
                 </button>
 
-<div className='relative'>
+<div className='relative task-menu'>
             <button
                 onClick={(e) => {
                     e.stopPropagation();
