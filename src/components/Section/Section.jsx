@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { CSS } from "@dnd-kit/utilities";
 import Task from '@/components/Task';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
-import { FaZ } from 'react-icons/fa6';
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
     const [task, setTask] = useState("");
@@ -36,8 +36,18 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         {/* Section header */}
 <div className='flex justify-between items-center mb-3'>
     {/* Drag handle */}
-    <div {...listeners} {...attributes} className='flex items-center gap-2 cursor-grab active:cursor-grabbing select-none'>   <span className='text-lg text-gray-400'>☰</span>
-        <h2 className='text-lg sm:text-xl font-semibold break-words dark:text-white'>{section.title}</h2>
+    <div 
+        {...listeners} 
+        {...attributes} 
+        className='flex items-center gap-2 cursor-grab active:cursor-grabbing select-none'>   
+        <span className='text-lg text-gray-400'>☰</span>
+        <motion.h2
+            layout
+            className='text-lg sm:text-xl font-semibold break-words dark:text-white'
+            whileHover={{ scale: 1.03 }}
+        >
+                {section.title}
+        </motion.h2>
     </div>
         {/* Delete button */}
         <button
