@@ -318,9 +318,19 @@ export default function List({ sections, setSections }) {
     
     </div>
 
+<AnimatePresence>
     {message && (
-        <p className='text-red-400 text-xl font-semibold mb-8'>{message}</p>
+        <motion.p
+        key="error-message"
+        initial={{ opacity: 0, y: -10, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -10, scale: 0.9 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className='text-red-400 text-xl font-semibold mb-8'>
+          {message}
+        </motion.p>
         )}
+</AnimatePresence>
           
 {/* DND KIT Wrapping */}
 
