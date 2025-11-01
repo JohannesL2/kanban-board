@@ -252,7 +252,7 @@ export default function List({ sections, setSections }) {
             <button
               type='button'
               onClick={() => setShowPlaceholderDropdown(prev => !prev)}
-              className='px-3 py-2 bg-gray-200 dark:bg-zinc-600 rounded-xl text-sm'
+              className='absolute left-12 top-1 p-4 bg-gray-200 dark:bg-zinc-600 rounded-xl text-sm'
             >
               ✨
             </button>
