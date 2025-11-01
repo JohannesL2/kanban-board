@@ -303,7 +303,14 @@ export default function List({ sections, setSections }) {
         </div>
           <button
           type='submit'
-          className='flex-none items-center justify-center w-12 h-12 text-white text-4xl rounded-full bg-blue-500 hover:bg-blue-600 dark:bg-zinc-700 dark:hover:bg-zinc-800 shadow-md transition-transform transform hover:scale-110 leading-none pb-[5px] font-semibold cursor-pointer'
+          className='
+            flex-none w-16 h-16 sm:w-12 sm:h-12
+          text-white text-4xl rounded-full
+          bg-blue-500 hover:bg-blue-600 active:scale-95
+          dark:bg-zinc-700 dark:hover:bg-zinc-800 
+            shadow-md transition-transform transform hover:scale-110
+            leading-none pb-[5px] font-semibold cursor-pointer
+          '
           >+</button>
     </form>
     
