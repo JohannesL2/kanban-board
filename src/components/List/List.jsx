@@ -249,13 +249,15 @@ export default function List({ sections, setSections }) {
           )}
 
           {isMobile && !title && (
-            <button
+            <motion.button
               type='button'
               onClick={() => setShowPlaceholderDropdown(prev => !prev)}
-              className='absolute left-12 top-1 p-4 bg-gray-200 dark:bg-zinc-600 rounded-xl text-sm'
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              className='absolute left-12 top-1 p-3 backdrop-blur-md bg-white/30 dark:bg-zinc-700/40 border border-white/20 dark:border-zinc-600/30 rounded-xl shadow-sm text-lg text-gray-700 dark:text-gray-200'
             >
               ✨
-            </button>
+            </motion.button>
           )}
           
         <AnimatePresence>

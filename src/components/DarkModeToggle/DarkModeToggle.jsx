@@ -36,8 +36,7 @@ export default function DarkModeToggle() {
         bg-gradient-to-tr from-zinc-500 to-zinc-700 
         dark:from-yellow-500 dark:to-orange-400
         shadow-md 
-        hover:shadow-lg 
-        transition-all duration-300 
+        hover:shadow-lg
         text-white"
             >
                 <motion.div
