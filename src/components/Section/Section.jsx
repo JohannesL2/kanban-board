@@ -50,7 +50,9 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         </motion.h2>
     </div>
         {/* Delete button */}
-        <button
+        <motion.button
+            whileHover={{ scale: 1.2, rotate: 10 }}
+            whileTap={{ scale: 0.9, rotate: -10 }}
             onClick={(e) => {
                 e.stopPropagation();
                 deleteSection(section.id)
@@ -58,7 +60,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
             className='text-red-500 hover:text-red-700 font-bold cursor-pointer'
         >
             X
-        </button>
+        </motion.button>
     </div>
 
     {/* Task lista */}
