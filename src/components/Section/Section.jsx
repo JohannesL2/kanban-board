@@ -40,7 +40,12 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         {...listeners} 
         {...attributes} 
         className='flex items-center gap-2 cursor-grab active:cursor-grabbing select-none'>   
-        <span className='text-lg text-gray-400'>☰</span>
+        <motion.span 
+            whileHover={{ rotate: 10}}
+            className='text-lg text-gray-400'
+        >
+                ☰
+        </motion.span>
         <motion.h2
             layout
             className='text-lg sm:text-xl font-semibold break-words dark:text-white'
