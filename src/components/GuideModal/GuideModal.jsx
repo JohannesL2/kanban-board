@@ -19,12 +19,20 @@ export default function GuideModal({isOpen, onClose}) {
           transition={{ duration: 0.25 }}
           aria-hidden="true"
         />
-          <div className="flex min-h-full items-center justify-center p-4">
-            <DialogPanel
-              transition
-              className="w-full max-w-md rounded-xl bg-black/50 p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
+        
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0}}
+              exit={{ opacity: 0, scale: 0.9, y: 10 }}
+              transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+              className='w-full max-w-md rounded-2xl bg-gray-900/80 p-6 shadow-2xl backdrop-blur-xl ring-1 ring-white/10'
             >
-              <DialogTitle as="h3" className="text-base/7 font-medium text-white">
+            <DialogPanel>
+              <DialogTitle 
+                as="h3"
+                className="text-base/7 font-medium text-white"
+              >
                 How to use:
               </DialogTitle>
              <p className="mt-2 text-sm/6 text-white/50 dark:text-white">
@@ -46,6 +54,7 @@ export default function GuideModal({isOpen, onClose}) {
                 </Button>
               </div>
             </DialogPanel>
+            </motion.div>
           </div>
       </Dialog>
       )}
