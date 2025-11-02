@@ -1,10 +1,24 @@
-import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function GuideModal({isOpen, onClose}) {
   return (
-    <>
-      <Dialog open={isOpen} onClose={onClose} className="relative z-10 focus:outline-none">
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <AnimatePresence>
+      {isOpen && (
+      <Dialog
+        as='div'
+        open={isOpen} 
+        onClose={onClose} 
+        className="relative z-50 focus:outline-none"
+      >
+        <motion.div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          aria-hidden="true"
+        />
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
               transition
@@ -33,8 +47,8 @@ export default function GuideModal({isOpen, onClose}) {
               </div>
             </DialogPanel>
           </div>
-        </div>
       </Dialog>
-    </>
+      )}
+    </AnimatePresence>
   )
 }

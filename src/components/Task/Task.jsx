@@ -103,7 +103,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 whileHover={{ scale: 1.02, opacity: 0.9 }}
                 transition={{ type: "spring", stiffness: 300 }}
                 onClick={() => setIsEditing(true)}
-                className={`${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
+                className={`relative group inline-block ${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
                     bold ? "font-bold dark:text-white" : "font-normal dark:text-white"
                 } truncate max-w-[200px] cursor-text`}
             >
