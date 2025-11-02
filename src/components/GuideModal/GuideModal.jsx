@@ -29,22 +29,34 @@ export default function GuideModal({isOpen, onClose}) {
               className='w-full max-w-md rounded-2xl bg-gray-900/80 p-6 shadow-2xl backdrop-blur-xl ring-1 ring-white/10'
             >
             <DialogPanel>
-              <DialogTitle 
+              <DialogTitle
                 as="h3"
                 className="text-base/7 font-medium text-white"
               >
                 How to use:
               </DialogTitle>
-             <p className="mt-2 text-sm/6 text-white/50 dark:text-white">
-  Welcome to your Kanban Board! <br /><br />
-  1. Organize your workflow by creating sections like <strong>Backlog</strong> and <strong>Work in Progress</strong>.<br />
-  2. Add tasks to each section using the "+" button.<br />
-  3. Drag tasks between sections to update their status.<br />
-  4. Move completed tasks to the <strong>Done</strong> section.<br /><br />
-  Keep your tasks organized and your workflow smooth!
+            <div className='mt-4 text-sm text-white/70 leading-relaxed'>
+            <p>
+              Welcome to your <strong>Kanban Board</strong>!
+            </p>
+            <ol className='list-decimal list-inside mt-2 space-y-1'>
+              <li>
+                Organize your workflow by creating sections like{' '}
+                <strong>Backlog</strong> and{' '}
+                <strong>Work in Progress</strong>
+              </li>
+              <li>Add tasks to each section using the "+" button.</li>
+              <li>Drag tasks between sections to update their status.</li>
+              <li>Move completed tasks to the <strong>Done</strong> section.</li>
+            </ol>
+            <p className='mt-4'>
+                Keep your tasks organized and your workflow smooth!
+            </p>
 
-  <p className='text-red-500 text-xl mt-5'>some functions may not be available yet</p>
-</p>
+  <p className='text-red-400 text-medium mt-5'>
+    some functions may not be available yet
+  </p>
+</div>
               <div className="mt-4">
                 <Button
                   className="inline-flex items-center gap-2 rounded-md bg-gray-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white data-hover:bg-gray-600 data-open:bg-gray-700"
