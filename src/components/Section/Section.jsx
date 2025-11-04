@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { CSS } from "@dnd-kit/utilities";
 import Task from '@/components/Task';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
     const [task, setTask] = useState("");
-    const [sectionColor, setSectionColor] = useState(section.color || "#ffffff");
+    const [sectionColor, setSectionColor] = useState(
+        localStorage.getItem(`sectionColor-${section.id}`) || section.color || "#ffffff"
+    );
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: section.id,
@@ -26,6 +28,10 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         addTask(section.id, task);
         setTask("");
     }
+
+    useEffect(() => {
+        localStorage.setItem(`sectionColor-${section.id}`, sectionColor);
+    }, [sectionColor, section.id]);
 
   return (
     <div
@@ -57,15 +63,26 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         </motion.h2>
     </div>
 
+        {/* Color picker */}
+            <div className='relative group'>
+                <button
+                    onClick={() => document.getElementById(`color-picker-${section.id}`).click()}
+                    className='w-6 h-6 rounded-full border border-gray-400 shadow-sm'
+                    style={{ backgroundColor: sectionColor }}
+                    title='Change section color'
+                >
+                </button>
 
-            <div className='flex items-center gap-2'>
-                <input 
+                <input
                     type="color"
                     value={sectionColor}
                     onChange={(e) => setSectionColor(e.target.value)}
-                    className='cursor-pointer w-6 h-6 rounded-md border-none p-4 bg-white/50'
-                    title='Change section color'
+                    className='absolute top-0 left-0 w-7 h-7 opacity-0 cursor-pointer'
                 />
+
+                <span className='absolute left-8 top-1/2 -translate-y-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition'>
+                    Change color
+                </span>
             </div>
 
         {/* Delete button */}
