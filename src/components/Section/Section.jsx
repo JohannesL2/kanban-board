@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
     const [task, setTask] = useState("");
+    const [sectionColor, setSectionColor] = useState(section.color || "#ffffff");
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: section.id,
@@ -16,6 +17,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         transition,
         touchAction: "none",
         opacity: isDragging ? 0.6 : 1,
+        backgroundColor: sectionColor,
     };
     
     const handleAddTask = (e) => {
@@ -54,6 +56,18 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
                 {section.title}
         </motion.h2>
     </div>
+
+
+            <div className='flex items-center gap-2'>
+                <input 
+                    type="color"
+                    value={sectionColor}
+                    onChange={(e) => setSectionColor(e.target.value)}
+                    className='cursor-pointer w-6 h-6 rounded-md border-none p-4 bg-white/50'
+                    title='Change section color'
+                />
+            </div>
+
         {/* Delete button */}
         <motion.button
             whileHover={{ scale: 1.2, rotate: 10 }}
