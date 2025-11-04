@@ -83,6 +83,19 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
                 <span className='absolute left-8 top-1/2 -translate-y-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition'>
                     Change color
                 </span>
+
+                <div className="absolute top-8 left-0 flex gap-1 opacity-0 group-hover:opacity-100 transition">
+                    {["#F87171", "#60A5FA", "#34D399", "#FBBF24", "#A78BFA"].map((color) => (
+                        <button
+                            key={color}
+                            onClick={() => setSectionColor(color)}
+                            className="w-5 h-5 rounded-full border border-gray-300 hover:scale-110 transition-transform"
+                            style={{ backgroundColor: color }}
+                        >
+
+                        </button>
+                    ))}
+                </div>
             </div>
 
         {/* Delete button */}
