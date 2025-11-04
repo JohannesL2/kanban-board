@@ -33,10 +33,26 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         localStorage.setItem(`sectionColor-${section.id}`, sectionColor);
     }, [sectionColor, section.id]);
 
+    const getContrastColor = (hexColor) => {
+        if (!hexColor) return "#000";
+
+        const color = hexColor.replace("#", "");
+
+        const r = parseInt(color.substr(0, 2), 16);
+        const g = parseInt(color.substr(2, 2), 16);
+        const b = parseInt(color.substr(4, 2), 16);
+
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        return luminance > 0.6 ? "#000000" : "#FFFFFF";
+    };
+
+    const textColor = getContrastColor(sectionColor);
+
   return (
     <div
         ref={setNodeRef}
-        style={style}
+        style={{ ...style, color: textColor }}
         className={`p-4 bg-white/20 dark:bg-white rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm transition
             ${isDragging ? "bg-green-200/40" : "bg-white/20 dark:bg-white/10"}`}
         >
@@ -84,6 +100,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
                     Change color
                 </span>
 
+                {/* Preset colors */}
                 <div className="absolute top-8 left-0 flex gap-1 opacity-0 group-hover:opacity-100 transition">
                     {["#F87171", "#60A5FA", "#34D399", "#FBBF24", "#A78BFA"].map((color) => (
                         <button
@@ -120,7 +137,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
     >
     <div className='mb-3'>
         {section.tasks.length === 0 ? (
-            <p className='text-gray-400 italic text-sm sm:text-base'>No tasks yet...</p>) : (
+            <p className='text-gray-400 italic text-sm sm:text-base' style={{ color: textColor + "CC" }}>No tasks yet...</p>) : (
                 section.tasks.map((t) => (
                     <Task
                         key={t.id}
@@ -143,7 +160,11 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
                 value={task}
                 onChange={(e) => setTask(e.target.value)}
                 placeholder='Add task'
-                className='flex-grow border rounded-lg p-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-400'
+                style={{
+                    backgroundColor: sectionColor,
+                    color: textColor,
+                }}
+                className='flex-grow border-2 rounded-lg p-2 focus:outline-none focus:ring-2 transition'
             />
 
             <button
