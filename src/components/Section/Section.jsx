@@ -3,8 +3,9 @@ import { CSS } from "@dnd-kit/utilities";
 import Task from '@/components/Task';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { motion, AnimatePresence } from "framer-motion";
+import TaskProgress from '../TaskProgress/TaskProgress';
 
-export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
+export default function Section({ section, addTask, deleteTask, updateTask, deleteSection, sections }) {
     const [task, setTask] = useState("");
     const [sectionColor, setSectionColor] = useState(
         localStorage.getItem(`sectionColor-${section.id}`) || section.color || "#ffffff"
@@ -128,7 +129,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
             X
         </motion.button>
     </div>
-
+      <TaskProgress section={section} />
     {/* Task lista */}
     <SortableContext
         id={section.id}

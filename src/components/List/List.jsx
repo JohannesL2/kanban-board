@@ -348,6 +348,7 @@ export default function List({ sections, setSections }) {
                 deleteTask={deleteTask}
                 updateTask={updateTask}
                 deleteSection={deleteSection}
+                sections={sections}
             />
         ))}
         </div>
