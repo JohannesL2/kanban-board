@@ -129,7 +129,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
             X
         </motion.button>
     </div>
-      <TaskProgress section={section} />
+      <TaskProgress section={section} textColor={textColor}/>
     {/* Task lista */}
     <SortableContext
         id={section.id}
