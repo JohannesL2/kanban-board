@@ -4,6 +4,7 @@ import SettingsModal from '@/components/SettingsModal';
 import { FaGithub } from 'react-icons/fa';
 import DarkModeToggle from '@/components/DarkModeToggle';
 import { motion } from 'framer-motion';
+import logo from '../../assets/logo.png';
 
 export default function Header({ resetBoard }) {
     const [isOpen, setIsOpen] = useState(false)
@@ -11,8 +12,15 @@ export default function Header({ resetBoard }) {
 
 
   return (
-<header className='w-full px-4 py-6 md:py-12'>
+<header className='w-full py-10 text-center relative overflow-hidden bg-gradient-to-b from-zinc-50/70 to-zinc-100/30 dark:from-zinc-900/80 dark:to-zinc-800/50 backdrop-blur-md shadow-sm'>
 
+    <motion.div
+      initial={{ y: -10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className='flex justify-center items-center gap-4'
+    >
+        <img src={logo} alt="" className='w-22 md:w-30 drop-shadow-md hover:scale-105 transition-transform duration-300'/>
         <motion.h1
           className='font-smooch text-5xl text-zinc-800 font-extrabold dark:text-white py-8 tracking-wide transition-colors duration-500 drop-shadow-lg'
           initial={{ y: -20, opacity: 0 }}
@@ -21,6 +29,7 @@ export default function Header({ resetBoard }) {
         >
           Kanban Board
         </motion.h1>
+    </motion.div>
 
         <motion.p
           className='text-center text-gray-600 dark:text-gray-300 mt-2 md:mt-4 text-lg md:text-xl'
