@@ -17,6 +17,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
     const [fontSize, setFontSize] = useState(task.fontSize || "base");
     const [bold, setBold] = useState(task.bold || false);
     const [priority, setPriority] = useState(task.priority || "low");
+    const [done, setDone] = useState(task.done || false);
 
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(task.text);
@@ -69,6 +70,13 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         updateTask(sectionId, task.id, { priority: newPriority });
     };
 
+        const handleToggleDone = () => {
+        const newDone = !done;
+        setDone(newDone);
+        updateTask(sectionId, task.id, { done: newDone });
+    };
+
+
     const priorityColor = 
         priority === "high"
         ? "border-red-500"
@@ -82,7 +90,15 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         style={style}
         className={`flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 ${isEditing ? "" : "active:cursor-grabbing"} border-2 ${priorityColor}`}
         >
+
         <div className='flex justify-between items-center gap-2 flex-1'>
+            <input
+                type='checkbox'
+                checked={done}
+                onChange={handleToggleDone}
+                className='accent-green-500 w-4 h-4 cursor-pointer'
+            />
+
             <div {...listeners} {...attributes} className='cursor-grab p-1 select-none text-gray-500'>
                 ☰
             </div>
