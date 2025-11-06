@@ -87,6 +87,8 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
   return (
     <div
         ref={setNodeRef}
+        {...listeners}
+        {...attributes}
         style={style}
         className={`flex justify-between items-center bg-black/10 rounded-lg p-2 mb-2 ${isEditing ? "" : "active:cursor-grabbing"} border-2 ${priorityColor}`}
         >
@@ -96,13 +98,11 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 type='checkbox'
                 checked={done}
                 onChange={handleToggleDone}
+                onPointerDown={(e) => e.stopPropagation()}
                 className='accent-green-500 w-4 h-4 cursor-pointer'
             />
 
-            <div {...listeners} {...attributes} className='absolute cursor-grab px-6 select-none text-gray-500 text-xl'>
-                ☰
-            </div>
-    <div className='relative flex flex-col px-4'>
+    <div className='relative flex flex-col px-4' onPointerDown={(e) => e.stopPropagation()}>
         {isEditing ? (
             <input
                 value={text}
@@ -138,7 +138,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         </div>
                 </div>
 
-<div className='relative task-menu'>
+<div className='relative task-menu' onPointerDown={(e) => e.stopPropagation()}>
             <button
                 onClick={(e) => {
                     e.stopPropagation();
