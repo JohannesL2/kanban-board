@@ -12,7 +12,7 @@ export default function Header({ resetBoard }) {
 
 
   return (
-<header className='w-full py-10 text-center relative overflow-hidden bg-gradient-to-b from-zinc-50/70 to-zinc-100/30 dark:from-zinc-900/80 dark:to-zinc-800/50 backdrop-blur-md shadow-sm'>
+<header className='w-full py-10 text-center relative overflow-hidden bg-gradient-to-b from-zinc-50/70 to-zinc-100/30 dark:from-zinc-900/80 dark:to-zinc-700/50 backdrop-blur-md shadow-sm'>
 
     <motion.div
       initial={{ y: -10, opacity: 0 }}
