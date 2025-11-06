@@ -157,7 +157,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className='absolute right-0 top-full mt-1 z-10 flex flex-col gap-2 bg-white/90 backdrop-blur-sm p-2 rounded-md shadow-lg border border-gray-300'
+            className='absolute right-0 top-full mt-1 z-10 flex flex-col gap-2 bg-black/30 backdrop-blur-sm p-2 rounded-md shadow-lg border border-gray-300'
             >
             <select
                 value={fontSize}
@@ -175,7 +175,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             <button
                 onClick={handleBoldToggle}
                 className={`px-2 py-1 rounded border text-sm ${
-                    bold ? "bg-gray-300 font-bold" : "bg-white"
+                    bold ? "bg-black/5 font-bold" : "bg-black/10"
                 }`}
             >
                 B
