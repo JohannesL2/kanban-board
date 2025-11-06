@@ -88,7 +88,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
     <div
         ref={setNodeRef}
         style={style}
-        className={`flex justify-between items-center bg-black/5 rounded-lg p-2 mb-2 ${isEditing ? "" : "active:cursor-grabbing"} border-2 ${priorityColor}`}
+        className={`flex justify-between items-center bg-black/10 rounded-lg p-2 mb-2 ${isEditing ? "" : "active:cursor-grabbing"} border-2 ${priorityColor}`}
         >
 
         <div className='flex justify-between items-center gap-2 flex-1'>
@@ -138,22 +138,13 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         </div>
                 </div>
 
-            <button onClick={(e) => {
-                e.stopPropagation();
-                deleteTask(sectionId, task.id);
-            }}
-            className='text-red-500 hover:text-red-700 font-bold px-2'
-                >
-                X
-                </button>
-
 <div className='relative task-menu'>
             <button
                 onClick={(e) => {
                     e.stopPropagation();
                     setIsMenuOpen(!isMenuOpen);
                 }}
-                className={`px-2 py-1 rounded shadow-md text-sm hover:scale-110 transition-transform
+                className={`p-2 rounded-full shadow-md text-sm hover:scale-110 transition-transform
                     ${isMenuOpen ? "bg-black/15 text-white shadow-inner" : "bg-white/5"}
                     `}
             >
@@ -199,6 +190,17 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
+
+            {/* Delete button */}
+            <button 
+                onClick={(e) => {
+                    e.stopPropagation();
+                    deleteTask(sectionId, task.id);
+            }}
+            className='text-red-600 hover:bg-red-100 border border-red-300 rounded px-2 py-1 text-sm font-medium'
+                >
+                🗑️ Delete task
+                </button>
         </motion.div>
 )}
 </AnimatePresence>
