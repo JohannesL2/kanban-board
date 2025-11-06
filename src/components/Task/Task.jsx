@@ -99,10 +99,10 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 className='accent-green-500 w-4 h-4 cursor-pointer'
             />
 
-            <div {...listeners} {...attributes} className='cursor-grab p-1 select-none text-gray-500'>
+            <div {...listeners} {...attributes} className='absolute cursor-grab px-6 select-none text-gray-500 text-xl'>
                 ☰
             </div>
-    <div className='flex flex-col'>
+    <div className='relative flex flex-col px-4'>
         {isEditing ? (
             <input
                 value={text}
