@@ -73,7 +73,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         </motion.span>
         <motion.h2
             layout
-            className='text-lg sm:text-xl font-semibold break-words dark:text-white'
+            className='text-lg sm:text-xl font-semibold break-words'
             whileHover={{ scale: 1.03 }}
         >
                 {section.title}

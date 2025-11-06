@@ -88,7 +88,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
     <div
         ref={setNodeRef}
         style={style}
-        className={`flex justify-between items-center bg-black/5 dark:bg-black/5 rounded-lg p-2 mb-2 ${isEditing ? "" : "active:cursor-grabbing"} border-2 ${priorityColor}`}
+        className={`flex justify-between items-center bg-black/5 rounded-lg p-2 mb-2 ${isEditing ? "" : "active:cursor-grabbing"} border-2 ${priorityColor}`}
         >
 
         <div className='flex justify-between items-center gap-2 flex-1'>
@@ -111,7 +111,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 onKeyDown={(e) => e.key === "Enter" && handleTextBlur()}
                 autoFocus
                 className={`${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
-                    bold ? "font-bold dark:text-white" : "font-normal dark:text-white"
+                    bold ? "font-bold" : "font-normal"
                 } border-b border-gray-300 focus:outline-none`}
             />
         ) : (
@@ -120,7 +120,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 transition={{ type: "spring", stiffness: 300 }}
                 onClick={() => setIsEditing(true)}
                 className={`relative group inline-block ${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
-                    bold ? "font-bold dark:text-white" : "font-normal dark:text-white"
+                    bold ? "font-bold" : "font-normal"
                 } truncate max-w-[200px] cursor-text`}
             >
                 {text}
@@ -153,8 +153,8 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                     e.stopPropagation();
                     setIsMenuOpen(!isMenuOpen);
                 }}
-                className={`px-2 py-1 rounded border text-sm dark:text-white dark:bg-black/20 hover:scale-110 transition-transform hover:shadow-md hover:shadow-zinc-500
-                    ${isMenuOpen ? "bg-blue-500 text-white shadow-inner" : "bg-white dark:bg-black/30 text-gray-600 dark:text-white hover:bg-blue-100 dark:hover:bg-black/40"}
+                className={`px-2 py-1 rounded shadow-md text-sm hover:scale-110 transition-transform
+                    ${isMenuOpen ? "bg-black/15 text-white shadow-inner" : "bg-white/5"}
                     `}
             >
                 ⚙️
@@ -166,12 +166,12 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className='absolute right-0 top-full mt-1 z-10 flex flex-col gap-2 bg-white/90 dark:bg-black/80 backdrop-blur-sm p-2 rounded-md shadow-lg border border-gray-300 dark:border-gray-700'
+            className='absolute right-0 top-full mt-1 z-10 flex flex-col gap-2 bg-white/90 backdrop-blur-sm p-2 rounded-md shadow-lg border border-gray-300'
             >
             <select
                 value={fontSize}
                 onChange={handleFontSizeChange}
-                className='border rounded px-2 py-1 text-sm dark:text-white dark:bg-black/40'
+                className='border rounded px-2 py-1 text-sm'
             >
                 <option value="xs">XS</option>
                 <option value="sm">SM</option>
@@ -183,7 +183,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
             <button
                 onClick={handleBoldToggle}
-                className={`px-2 py-1 rounded border text-sm dark:text-white dark:bg-black/20 ${
+                className={`px-2 py-1 rounded border text-sm ${
                     bold ? "bg-gray-300 font-bold" : "bg-white"
                 }`}
             >
@@ -193,7 +193,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             <select
                 value={priority}
                 onChange={handlePriorityChange}
-                className='border rounded px-2 py-1 text-sm dark:text-white dark:bg-black/40'
+                className='border rounded px-2 py-1 text-sm'
             >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
