@@ -127,12 +127,16 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             </motion.span>
         )}
             {task.updatedAt && (
-                <span className='text-xs text-gray-400 dark:text-gray-500'>
+                <span 
+                    className='text-xs' 
+                >
                     Updated: {new Date(task.updatedAt).toLocaleDateString()}
                 </span>
             )}
 
-            <span className='text-xs text-gray-400 dark:text-gray-500 mt-1 text-nowrap'>
+            <span 
+                className='text-xs mt-1 text-nowrap'
+            >
                 Created: {new Date(task.id).toLocaleDateString()}
             </span>
         </div>
