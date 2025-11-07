@@ -25,7 +25,10 @@ const trackColor = `${textColor}33`;
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                 />
             </div>
-        <span className='text-xs text-gray-500'>
+        <span 
+            className='text-xs'
+            style={{ color: textColor}}
+        >
             {completedTasks} / {totalTasks} tasks done
         </span>
         </div>
