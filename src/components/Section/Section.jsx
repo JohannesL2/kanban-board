@@ -61,20 +61,36 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         {/* Section header */}
 <div className='flex justify-between items-center mb-3'>
     {/* Drag handle */}
-    <div 
-        {...listeners} 
-        {...attributes} 
-        className='flex items-center gap-2 cursor-grab active:cursor-grabbing select-none'>   
+    <div
+        className='flex items-center gap-2'>   
         <motion.span 
-            whileHover={{ rotate: 10}}
-            className='text-lg text-gray-400'
+            whileHover={{ scale: 1.1, opacity: 0.9 }}
+            whileTap={{ scale: 0.95 }}
+            className='p-1 rounded-md'
+        {...listeners} 
+        {...attributes}
         >
-                ☰
+            <div 
+                className='flex flex-col justify-center items-center gap-[3px] cursor-grab active:cursor-grabbing select-none'
+            >
+                <span 
+                    className='block w-4 h-[3px] rounded'
+                    style={{ backgroundColor: textColor }}
+                ></span>
+                <span 
+                    className='block w-4 h-[3px] rounded'
+                    style={{ backgroundColor: textColor }}
+                ></span>
+                <span 
+                    className='block w-4 h-[3px] rounded'
+                    style={{ backgroundColor: textColor }}
+                ></span>
+
+            </div>
         </motion.span>
         <motion.h2
             layout
-            className='text-lg sm:text-xl font-semibold break-words'
-            whileHover={{ scale: 1.03 }}
+            className='text-lg sm:text-xl font-semibold break-words select-none'
         >
                 {section.title}
         </motion.h2>
