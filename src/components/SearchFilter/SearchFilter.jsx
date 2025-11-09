@@ -1,9 +1,21 @@
-import { button } from 'framer-motion/client'
-import React from 'react'
+import React, { useState } from 'react';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
 
 export default function SearchFilter({searchTerm, setSearchTerm}) {
+    const [isOpen, setIsOpen] = useState(false);
+
+
   return (
     <div className='w-full mb-4 relative'>
+        <button
+            onClick={() => setIsOpen(!isOpen)}
+            className='bg-black p-4'
+        >
+            <FaMagnifyingGlass className='text-white text-lg' />
+        </button>
+
+    {isOpen && (
+    <div className='relative w-64'>
         <input 
             type="text"
             placeholder='Search for a task...'
@@ -14,11 +26,13 @@ export default function SearchFilter({searchTerm, setSearchTerm}) {
         {searchTerm && (
             <button
                 onClick={() => setSearchTerm("")}
-                className='absolute right-3 top-2 text-gray-500'
+                className='absolute right-3 text-gray-500 top-1/2 -translate-y-1/2'
             >
                 x
             </button>
         )}
+        </div>
+    )}
     </div>
   )
 }
