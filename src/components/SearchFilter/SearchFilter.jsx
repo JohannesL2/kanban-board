@@ -1,27 +1,35 @@
 import React, { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SearchFilter({searchTerm, setSearchTerm}) {
     const [isOpen, setIsOpen] = useState(false);
 
 
   return (
-    <div className='w-full mb-4 relative'>
+    <div className='relative flex items-center'>
         <button
             onClick={() => setIsOpen(!isOpen)}
-            className='bg-black p-4'
+            className='bg-black hover:bg-zinc-800 p-4 z-10 rounded-full shadow-md transition-colors group cursor-pointer'
         >
-            <FaMagnifyingGlass className='text-white text-lg' />
+            <FaMagnifyingGlass className='text-white group-hover:scale-105 transition-transform' />
         </button>
-
+<AnimatePresence>
     {isOpen && (
-    <div className='relative w-64'>
+    <motion.div 
+        className='absolute left-0 top-0'
+        initial={{ x: -20, width: 0, opacity: 0 }}
+        animate={{ x: 0, width: '16rem', opacity: 1 }}
+        exit={{ x: -20, width: 0, opacity: 0 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        style={{ zIndex: 0 }}
+    >
         <input 
             type="text"
             placeholder='Search for a task...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className='w-full p-2 border rounded-lg'
+            className='w-64 pl-14 py-3 bg-white rounded-full shadow-sm focus:outline-none focus:shadow-md transition-shadow'
         />
         {searchTerm && (
             <button
@@ -31,8 +39,9 @@ export default function SearchFilter({searchTerm, setSearchTerm}) {
                 x
             </button>
         )}
-        </div>
+        </motion.div>
     )}
+    </AnimatePresence>
     </div>
   )
 }
