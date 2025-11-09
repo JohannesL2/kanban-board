@@ -7,8 +7,9 @@ import {
 import { arrayMove } from '@dnd-kit/sortable';
 import Section from '@/components/Section';
 import { motion, AnimatePresence } from "framer-motion";
+import { section } from 'framer-motion/client';
 
-export default function List({ sections, setSections }) {
+export default function List({ sections, setSections, searchTerm }) {
   const [title, setTitle] = useState("")
   const [message, setMessage] = useState("")
   const [shake, setShake] = useState(false);
@@ -212,6 +213,14 @@ export default function List({ sections, setSections }) {
     )
   }
 
+  const filteredSections = sections.map(section => ({
+    ...section,
+    tasks: section.tasks.filter(task => 
+      task.text.toLowerCase().includes(searchTerm.toLowerCase())
+    ),
+  }))
+  .filter(section => section.tasks.length > 0 || searchTerm === "");
+
   return (
     <div className='min-h-screen p-4 w-full'>
 <div className='flex justify-center mb-10'>
@@ -340,7 +349,7 @@ export default function List({ sections, setSections }) {
         strategy={verticalListSortingStrategy}
     >
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {sections.map((section) => (
+        {filteredSections.map((section) => (
             <Section
                 key={section.id}
                 section={section}

@@ -9,6 +9,8 @@ function App({setTitle, setMessage}) {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     localStorage.setItem('sections', JSON.stringify(sections));
   }, [sections]);
@@ -22,8 +24,8 @@ function App({setTitle, setMessage}) {
   return (
     <div>
     <main className='min-h-screen w-full bg-zinc-300 dark:bg-zinc-800 transition-colors duration-500'>
-    <Header resetBoard={resetBoard} />
-    <List sections={sections} setSections={setSections}/>
+    <Header resetBoard={resetBoard} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+    <List sections={sections} setSections={setSections} searchTerm={searchTerm} />
     </main>
     </div>
   )

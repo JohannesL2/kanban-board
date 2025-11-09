@@ -5,8 +5,9 @@ import { FaGithub } from 'react-icons/fa';
 import DarkModeToggle from '@/components/DarkModeToggle';
 import { motion } from 'framer-motion';
 import logo from '../../assets/logo.png';
+import SearchFilter from '@/components/SearchFilter'
 
-export default function Header({ resetBoard }) {
+export default function Header({ resetBoard, searchTerm, setSearchTerm }) {
     const [isOpen, setIsOpen] = useState(false)
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
@@ -39,6 +40,8 @@ export default function Header({ resetBoard }) {
         >
           Organize your tasks with ease
         </motion.p>
+
+        <SearchFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
     <motion.div 
     className='flex items-center justify-center gap-4 mt-12'
