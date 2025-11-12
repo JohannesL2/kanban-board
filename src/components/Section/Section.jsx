@@ -64,11 +64,16 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
     <div
         className='flex items-center gap-2'>   
         <motion.span 
-            whileHover={{ scale: 1.1, opacity: 0.9 }}
-            whileTap={{ scale: 0.95 }}
             className='p-1 rounded-md'
         {...listeners} 
         {...attributes}
+        animate={{
+            scale: isDragging ? 1.3 : 1,
+            opacity: isDragging ? 1 : 0.9,
+            boxShadow: isDragging
+                ? "0 0 10px rgba(0,0,0,0.3"
+                : "0 0 0 rgba(0,0,0,0)",
+        }}
         >
             <div 
                 className='flex flex-col justify-center items-center gap-[3px] cursor-grab active:cursor-grabbing select-none'
