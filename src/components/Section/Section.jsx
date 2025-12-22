@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import { CSS } from "@dnd-kit/utilities";
 import Task from '@/components/Task';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
@@ -52,10 +52,14 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
     const textColor = getContrastColor(sectionColor);
 
     const haptic = useHaptic();
+    const wasDragging = useRef(false);
 
     useEffect(() => {
-        if (!isDragging) return;
-        haptic(30);
+        if (isDragging && !wasDragging.current) {
+            haptic(30);
+        }
+
+        wasDragging.current = isDragging;
     }, [isDragging, haptic]);
 
   return (
