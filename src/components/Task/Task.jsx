@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { motion, AnimatePresence } from "framer-motion";
+import { useHaptic } from '../../hooks/useHaptic';
 
 export default function Task({ task, sectionId, deleteTask, updateTask }) {
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: { sectionId },
     });
@@ -83,6 +84,17 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         : priority === "medium"
         ? "border-yellow-500"
         : "border-green-500";
+
+    const haptic = useHaptic();
+            const wasDragging = useRef(false);
+        
+            useEffect(() => {
+                if (isDragging && !wasDragging.current) {
+                    haptic(30);
+                }
+        
+                wasDragging.current = isDragging;
+            }, [isDragging, haptic]);
 
   return (
     <div
