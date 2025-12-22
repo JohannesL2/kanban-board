@@ -4,6 +4,7 @@ import Task from '@/components/Task';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { motion, AnimatePresence } from "framer-motion";
 import TaskProgress from '../TaskProgress/TaskProgress';
+import { useHaptic } from '../../hooks/useHaptic';
 
 export default function Section({ section, addTask, deleteTask, updateTask, deleteSection, sections }) {
     const [task, setTask] = useState("");
@@ -49,6 +50,13 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
     };
 
     const textColor = getContrastColor(sectionColor);
+
+    const haptic = useHaptic();
+
+    useEffect(() => {
+        if (!isDragging) return;
+        haptic(30);
+    }, [isDragging, haptic]);
 
   return (
     <div
