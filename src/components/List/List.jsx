@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import {
     SortableContext,
-    verticalListSortingStrategy
+    horizontalListSortingStrategy
 } from "@dnd-kit/sortable";
 import { arrayMove } from '@dnd-kit/sortable';
 import Section from '@/components/Section';
@@ -221,120 +221,82 @@ export default function List({ sections, setSections, searchTerm }) {
   .filter(section => section.tasks.length > 0 || searchTerm === "");
 
   return (
-    <div className='min-h-screen p-4 w-full'>
-<div className='flex justify-center mb-10'>
-    <form onSubmit={createSection} className='flex flex-col sm:flex-row items-center gap-4  bg-white/20 p-4 rounded-2xl shadow-lg w-full max-w-3xl dark:bg-zinc-300'>
-      <div className="relative">
+    <div className='p-6 w-full max-w-[1400px] mx-auto'>
+<div className='flex justify-start mb-8'>
+    <form onSubmit={createSection} className='flex items-center gap-3 bg-[#12131a]/60 border border-zinc-800/60 p-2 pl-3 rounded-xl shadow-xl max-w-md w-full'>
+      <div className="relative flex-1">
         <motion.input 
-          type="text"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value)
-            setShowPlaceholderDropdown(false);
-          }}
-          onKeyDown={handleKeyDown}
-          className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg dark:bg-white dark:text-black'
-          animate={shake ? { x: [0, -10, 10, -10, 10, 0] } : { x: 0 }}
-          transition={{ duration: 0.5 }}
-          placeholder="Write section title..."
-          />
+              type="text"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value)
+                setShowPlaceholderDropdown(false);
+              }}
+              onKeyDown={handleKeyDown}
+              className='w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-600 py-1.5'
+              animate={shake ? { x: [0, -10, 10, -10, 10, 0] } : { x: 0 }}
+              transition={{ duration: 0.5 }}
+              placeholder="Create column..."
+            />
 
-          {!title && !isMobile && (
-            <AnimatePresence mode='wait'>
-              <motion.span
-                key={placeholder}
-                initial={{ opacity: 0, y: 10}}
-                animate={{ opacity: 0.5, y: 0 }}
-                exit={{ opacity: 0, y: -10}}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className='absolute left-4 top-4 text-gray-500 select-none cursor-pointer'
-                onClick={() => setTitle(placeholder)}
-
-              >
-                {placeholder}
-              </motion.span>
-            </AnimatePresence>
-          )}
-
-          {isMobile && !title && (
-            <motion.button
-              type='button'
-              onClick={() => setShowPlaceholderDropdown(prev => !prev)}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-              className='absolute left-12 top-1 p-3 backdrop-blur-md bg-white/30 dark:bg-zinc-700/40 border border-white/20 dark:border-zinc-600/30 rounded-xl shadow-sm text-lg text-gray-700 dark:text-gray-200'
-            >
-              ✨
-            </motion.button>
-          )}
-          
-        <AnimatePresence>
-          {showPlaceholderDropdown && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className='absolute left-0 top-full mt-1 bg-white dark:bg-zinc-700 border rounded-lg shadow-md z-10 w-full'
-            >
-              {placeholderExamples.map((ph, i) => (
-                <div
-                  key={i}
-                  className='px-4 py-2 hover:bg-gray-200 dark:hover:bg-zinc-600 cursor-pointer'
-                  onClick={() => {
-                    setTitle(ph)
-                    setShowPlaceholderDropdown(false);
-                  }}
+            {!title && !isMobile && (
+              <AnimatePresence mode='wait'>
+                <motion.span
+                  key={placeholder}
+                  initial={{ opacity: 0, y: 5}}
+                  animate={{ opacity: 0.4, y: 0 }}
+                  exit={{ opacity: 0, y: -5}}
+                  className='absolute left-0 top-1.5 text-xs text-zinc-400 select-none pointer-events-none'
                 >
-                  {ph}
-                </div>
-              ))}
-            </motion.div>
+                  {placeholder}
+                </motion.span>
+              </AnimatePresence>
             )}
-        </AnimatePresence>
 
-          <div className='flex flex-wrap gap-4 mt-2 text-sm text-gray-700 dark:text-gray-800'>
-            <span className='flex items-center gap-1'>
-            Press <kbd className="kbd kbd-sm">Tab</kbd>
-            to fill placeholder
-            </span>
-            <span className='flex items-center gap-1'>
-            Press <kbd className="kbd kbd-sm">▲</kbd>
-            to choose previous placeholder
-            </span>
-            <span className='flex items-center gap-1'>
-            Press <kbd className="kbd kbd-sm">▼</kbd>
-            to choose next placeholder
-            </span>
-            <span className='flex items-center gap-1'>
-            Press <kbd className="kbd kbd-sm">Enter</kbd>
-            to add new section
-            </span>
+          <AnimatePresence>
+              {showPlaceholderDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  className='absolute left-0 top-full mt-2 bg-[#1f202c] border border-zinc-800 rounded-xl shadow-2xl z-50 w-full overflow-hidden'
+                >
+                  {placeholderExamples.map((ph, i) => (
+                    <div
+                      key={i}
+                      className='px-3 py-2 text-xs text-zinc-300 hover:bg-zinc-800 cursor-pointer'
+                      onClick={() => {
+                        setTitle(ph)
+                        setShowPlaceholderDropdown(false);
+                      }}
+                    >
+                      {ph}
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </div>
+
           <button
           type='submit'
           className='
-            flex-none w-16 h-16 sm:w-12 sm:h-12
-          text-white text-4xl rounded-full
-          bg-blue-500 hover:bg-blue-600 active:scale-95
-          dark:bg-zinc-700 dark:hover:bg-zinc-800 
-            shadow-md transition-transform transform hover:scale-110
-            leading-none pb-[5px] font-semibold cursor-pointer
+            flex-none w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 active:scale-95 text-zinc-200 text-sm font-medium transition-all cursor-pointer
           '
-          >+</button>
+          >
+            +
+          </button>
     </form>
-    
-    </div>
+  </div>
 
 <AnimatePresence>
     {message && (
         <motion.p
         key="error-message"
-        initial={{ opacity: 0, y: -10, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -10, scale: 0.9 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className='text-red-400 text-xl font-semibold mb-8'>
+        initial={{ opacity: 0, y: -5 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -5 }}
+        className='text-red-400 text-xs font-medium mb-4'>
           {message}
         </motion.p>
         )}
@@ -345,9 +307,9 @@ export default function List({ sections, setSections, searchTerm }) {
 <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
     <SortableContext
         items={sections.map(s => s.id)}
-        strategy={verticalListSortingStrategy}
+        strategy={horizontalListSortingStrategy}
     >
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='flex flex-col sm:flex-row sm:overflow-x-auto gap-5 pb-6 items-start scrollbar-thin scrollbar-thumb-zinc-800'>
         {filteredSections.map((section) => (
             <Section
                 key={section.id}
