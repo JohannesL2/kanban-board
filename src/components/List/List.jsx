@@ -7,7 +7,6 @@ import {
 import { arrayMove } from '@dnd-kit/sortable';
 import Section from '@/components/Section';
 import { motion, AnimatePresence } from "framer-motion";
-import { section } from 'framer-motion/client';
 
 export default function List({ sections, setSections, searchTerm }) {
   const [title, setTitle] = useState("")

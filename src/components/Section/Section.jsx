@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import TaskProgress from '../TaskProgress/TaskProgress';
 import { useHaptic } from '../../hooks/useHaptic';
 
-export default function Section({ section, addTask, deleteTask, updateTask, deleteSection, sections }) {
+export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
     const [task, setTask] = useState("");
     const [sectionColor, setSectionColor] = useState(
         localStorage.getItem(`sectionColor-${section.id}`) || section.color || "#ffffff"
