@@ -90,7 +90,9 @@ border-b border-white/10'>
             transition-all
             hover:bg-white
             dark:bg-white/5
-            dark:hover:bg-white/10' 
+            dark:hover:bg-white/10
+            cursor-pointer
+            ' 
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
@@ -110,7 +112,9 @@ border-b border-white/10'>
             transition-all
             hover:bg-white
             dark:bg-white/5
-            dark:hover:bg-white/10' 
+            dark:hover:bg-white/10
+            cursor-pointer
+            ' 
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsSettingsOpen(true)}
