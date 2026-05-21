@@ -25,24 +25,18 @@ function App({setTitle, setMessage}) {
     <div>
     <main 
       className='
-      min-h-screen
-      overflow-hidden
-      bg-gradient-to-br
-    from-slate-100
-    via-slate-50
-    to-slate-200
-    dark:from-[#0f172a]
-    dark:via-[#111827]
-    dark:to-[#020617]
-    text-slate-900
-    dark:text-white
-      transition-all
-      duration-500
-      pb-12
+        min-h-screen
+        overflow-hidden
+        bg-[#08090c]
+        text-slate-200
+        transition-all
+        duration-500
+        pb-12
       '
     >
-      <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+      <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 left-[40%] h-[300px] w-[400px] rounded-full bg-purple-500/5 blur-[100px] pointer-events-none" />
     
       <div className='relative z-10'>
         <Header 

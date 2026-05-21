@@ -8,9 +8,7 @@ import { useHaptic } from '../../hooks/useHaptic';
 
 export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
     const [task, setTask] = useState("");
-    const [sectionColor, setSectionColor] = useState(
-        localStorage.getItem(`sectionColor-${section.id}`) || section.color || "#ffffff"
-    );
+    const [isAdding, setIsAdding] = useState(false);
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: section.id,
@@ -24,15 +22,15 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
     };
     
     const handleAddTask = (e) => {
-        e.stopPropagation();
-        if (task.trim() === "") return;
+        if (e) e.stopPropagation();
+        if (task.trim() === "") {
+            setIsAdding(false);
+            return;
+        }
         addTask(section.id, task);
         setTask("");
-    }
-
-    useEffect(() => {
-        localStorage.setItem(`sectionColor-${section.id}`, sectionColor);
-    }, [sectionColor, section.id]);
+        setIsAdding(false);
+    };
 
     const haptic = useHaptic();
     const wasDragging = useRef(false);
@@ -50,110 +48,47 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         ref={setNodeRef}
         style={{ ...style }}
         className={`
-  group
-  relative
-  w-full
-  max-w-full
-  sm:max-w-sm
-  rounded-3xl
-  p-5
-  mb-4
-  border
-  border-white/20
-  bg-white/40
-  dark:bg-white/5
-  backdrop-blur-2xl
-  shadow-[0_8px_32px_rgba(0,0,0,0.12)]
-  transition-all
-  duration-300
-  hover:shadow-2xl
-  ${
-    isDragging
-      ? "scale-[1.02] ring-2 ring-blue-400/40"
-      : ""
-  }
-`}
+                relative
+                w-full
+                max-w-full
+                sm:max-w-[310px] /* Kompakt bredd precis som kolumnerna på bilden */
+                rounded-2xl
+                p-4
+                mb-4
+                bg-[#12131a]/95
+                border
+                border-zinc-800/40
+                shadow-2xl
+                transition-all
+                duration-300
+                ${isDragging ? "scale-[1.01] ring-1 ring-zinc-700/50 z-50 opacity-80" : ""}
+            `}
         >
-            <div
-  className="
-    absolute
-    inset-0
-    bg-gradient-to-br
-    from-white/10
-    to-transparent
-    pointer-events-none
-  "
-/>
 
         {/* Section header */}
-<div className='flex justify-between items-center mb-3'>
+<div className='flex justify-between items-center mb-4'>
     {/* Drag handle */}
-    <div
-        className='flex items-center gap-2'>   
-        <motion.span 
-            className='p-1 rounded-md'
-        {...listeners} 
-        {...attributes}
-        animate={{
-            scale: isDragging ? 1.3 : 1,
-            opacity: isDragging ? 1 : 0.9,
-            boxShadow: isDragging
-                ? "0 0 10px rgba(0,0,0,0.3)"
-                : "0 0 0 rgba(0,0,0,0)",
-        }}
-        >
-            <div 
-                className='flex flex-col justify-center items-center gap-[3px] cursor-grab active:cursor-grabbing select-none'
-            >
-                <span className="block w-4 h-[3px] rounded bg-zinc-900 dark:bg-zinc-100"></span>
-                <span className="block w-4 h-[3px] rounded bg-zinc-900 dark:bg-zinc-100"></span>
-                <span className="block w-4 h-[3px] rounded bg-zinc-900 dark:bg-zinc-100"></span>
+    <div className='flex items-center gap-2 min-w-0'>
+        <div 
+                        {...listeners} 
+                        {...attributes}
+                        className='grid grid-cols-2 gap-[3px] p-1 cursor-grab active:cursor-grabbing opacity-30 hover:opacity-80 transition-opacity'
+                    >
+                        <span className="w-1 h-1 rounded-full bg-white"></span>
+                        <span className="w-1 h-1 rounded-full bg-white"></span>
+                        <span className="w-1 h-1 rounded-full bg-white"></span>
+                        <span className="w-1 h-1 rounded-full bg-white"></span>
+                    </div>
 
-            </div>
-        </motion.span>
-        <motion.h2
-            layout
-            className='text-xl font-bold tracking-tight break-words select-none text-zinc-900 dark:text-zinc-100'
-        >
-                {section.title}
-        </motion.h2>
-    </div>
-
-        {/* Color picker */}
-            <div className='relative group'>
-                <button
-                    onClick={() => document.getElementById(`color-picker-${section.id}`).click()}
-                    className='w-6 h-6 rounded-full border border-gray-400 shadow-sm'
-                    style={{ backgroundColor: sectionColor }}
-                    title='Change section color'
-                >
-                </button>
-
-                <input
-                    type="color"
-                    value={sectionColor}
-                    onChange={(e) => setSectionColor(e.target.value)}
-                    className='absolute top-0 left-0 w-7 h-7 opacity-0 cursor-pointer'
-                />
-
-                <span className='absolute left-8 top-1/2 -translate-y-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition'>
-                    Change color
-                </span>
-
-                {/* Preset colors */}
-                <div className="absolute top-8 left-0 flex gap-1 opacity-0 group-hover:opacity-100 transition">
-                    {["#F87171", "#60A5FA", "#34D399", "#FBBF24", "#A78BFA"].map((color) => (
-                        <button
-                            key={color}
-                            onClick={() => setSectionColor(color)}
-                            className="w-5 h-5 rounded-full border border-gray-300 hover:scale-110 transition-transform"
-                            style={{ backgroundColor: color }}
-                        >
-
-                        </button>
-                    ))}
+        <div className="flex items-center gap-2 min-w-0">
+                        <h2 className='text-sm font-semibold tracking-wide truncate select-none text-zinc-100'>
+                            {section.title}
+                        </h2>
+                        <span className="text-xs px-1.5 py-0.5 rounded bg-zinc-800/60 text-zinc-400 font-medium">
+                            {section.tasks.length}
+                        </span>
+                    </div>
                 </div>
-            </div>
 
         {/* Delete button */}
         <motion.button
@@ -169,104 +104,64 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         </motion.button>
     </div>
 
-    <div
-  className="mb-4 h-1.5 w-full rounded-full"
-  style={{ backgroundColor: sectionColor }}
-/>
-
       <TaskProgress section={section} />
     {/* Task lista */}
     <SortableContext
-        id={section.id}
-        items={section.tasks.map((t) => t.id)}
-        strategy={verticalListSortingStrategy}
-    >
-    <div className='mb-3'>
-        {section.tasks.length === 0 ? (
-            <p className='text-zinc-500 dark:text-zinc-400 italic text-sm sm:text-base'>No tasks yet...</p>) : (
-                section.tasks.map((t) => (
-                    <Task
-                        key={t.id}
-                        task={t}
-                        sectionId={section.id}
-                        deleteTask={deleteTask}
-                        updateTask={updateTask}
-                    />
-                ))
-        )}
-    </div>
-
-    </SortableContext>
+                id={section.id}
+                items={section.tasks.map((t) => t.id)}
+                strategy={verticalListSortingStrategy}
+            >
+                <div className='mb-3 min-h-[10px]'>
+                    {section.tasks.length === 0 && !isAdding ? (
+                        <p className='text-zinc-600 italic text-xs py-2 px-1 select-none'>
+                            No tasks yet...
+                        </p>
+                    ) : (
+                        section.tasks.map((t) => (
+                            <Task
+                                key={t.id}
+                                task={t}
+                                sectionId={section.id}
+                                deleteTask={deleteTask}
+                                updateTask={updateTask}
+                            />
+                        ))
+                    )}
+                </div>
+            </SortableContext>
 
 
     {/* Add task */}
-    <div className="flex gap-2 flex-col">
-            <input
-  type="text"
-  value={task}
-  onChange={(e) => setTask(e.target.value)}
-  placeholder="Add task"
-  className="
-    w-full
-
-    rounded-2xl
-    border
-    border-white/10
-
-    bg-white/50
-    dark:bg-white/5
-
-    px-4
-    py-3
-
-    backdrop-blur-xl
-
-    outline-none
-
-    transition-all
-    duration-300
-
-    focus:ring-2
-    focus:ring-blue-500/40
-
-    text-zinc-900
-dark:text-zinc-100
-    placeholder:text-slate-400
-  "
-/>
-
-            <button
-                onClick={handleAddTask}
-                className="
-  rounded-2xl
-
-  bg-gradient-to-r
-  from-blue-500
-  to-indigo-600
-
-  px-4
-  py-3
-
-  font-semibold
-  text-white
-
-  shadow-lg
-  shadow-blue-500/20
-
-  transition-all
-  duration-300
-
-  hover:scale-[1.02]
-  hover:shadow-xl
-
-  active:scale-[0.98]
-
-  cursor-pointer
-"
+<div onPointerDown={(e) => e.stopPropagation()} className="mt-2">
+    <AnimatePresence mode="wait">
+        {isAdding ? (
+            <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                className="flex flex-col gap-2"
             >
-                Add Task
+                <input
+                    type="text"
+                    value={task}
+                    onChange={(e) => setTask(e.target.value)}
+                    onBlur={handleAddTask}
+                    onKeyDown={(e) => e.key === "Enter" && handleAddTask(e)}
+                    placeholder="What's on your mind?"
+                    autoFocus
+                    className="w-full rounded-xl border border-zinc-800 bg-[#181922] px-3 py-2 text-xs text-zinc-100 outline-none focus:border-zinc-700 placeholder:text-zinc-600"
+                />
+            </motion.div>
+        ) : (
+            <button
+                onClick={() => setIsAdding(true)}
+                className="w-full flex items-center gap-2 px-2 py-2 text-xs font-medium text-zinc-500 hover:text-zinc-300 rounded-xl hover:bg-zinc-900/40 transition-all text-left"
+            >
+                <span className="text-sm">+</span> Add task
             </button>
-        </div>
+        )}
+    </AnimatePresence>
+</div>
         </div>
   );
 }

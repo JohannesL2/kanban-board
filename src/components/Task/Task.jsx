@@ -47,7 +47,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
     const FONT_SIZE_CLASSES = {
         xs: "text-xs",
         sm: "text-sm",
-        base: "text-base",
+        base: "text-sm md:text-base",
         lg: "text-lg",
         xl: "text-xl",
         "2xl": "text-2xl",
@@ -80,10 +80,10 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const priorityColor = 
         priority === "high"
-        ? "border-red-500"
+        ? { label: "High", bg: "bg-red-500/10", text: "text-red-400", dot: "bg-red-500" }
         : priority === "medium"
-        ? "border-yellow-500"
-        : "border-green-500";
+        ? { label: "Medium", bg: "bg-amber-500/10", text: "text-amber-400", dot: "bg-amber-500" }
+        : { label: "Low", bg: "bg-sky-500/10", text: "text-sky-400", dot: "bg-sky-500" };
 
     const haptic = useHaptic();
             const wasDragging = useRef(false);
@@ -103,40 +103,45 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         {...attributes}
         style={style}
         className={`
-  group
-  relative
-  ${isMenuOpen ? "z-50" : "z-0"}
-  flex
-  justify-between
-  items-start
+                group
+                relative
+                ${isMenuOpen ? "z-50" : "z-0"}
+                flex
+                flex-col
+                gap-3
 
-  rounded-2xl
-  p-4
-  mb-3
+                rounded-xl
+                p-4
+                mb-3
 
-  border
-  ${priorityColor}
+                /* Mörk, semi-transparent bakgrund enligt bilden */
+                bg-[#181922]/80
+                backdrop-blur-md
+                border
+                border-zinc-800/60
 
-  bg-white/40
-  dark:bg-white/5
+                shadow-lg
+                shadow-black/20
 
-  backdrop-blur-xl
+                transition-all
+                duration-200
 
-  shadow-md
-  shadow-black/5
+                hover:border-zinc-700
+                hover:shadow-xl
 
-  transition-all
-  duration-300
-
-  hover:shadow-xl
-  hover:-translate-y-[1px]
-
-  ${isDragging ? "scale-[1.01] rotate-[0.3deg]" : ""}
-  ${isEditing ? "" : "active:cursor-grabbing"}
-`}
+                ${isDragging ? "opacity-40 scale-[0.98]" : ""}
+                ${isEditing ? "" : "active:cursor-grabbing"}
+            `}
         >
 
-        <div className='flex justify-between items-start gap-2 flex-1'>
+        <div className='flex justify-between items-center w-full'>
+            <div className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${priorityColor.bg} ${priorityColor.text}`}
+            >
+                <span className={`w-1.5 h-1.5 rounded-full ${priorityColor.dot}`} />
+                {priorityColor.label}
+            </div>
+
+<div className='flex items-center gap-2'>
             <input
                 type='checkbox'
                 checked={done}
@@ -163,14 +168,13 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 transition={{ type: "spring", stiffness: 300 }}
                 onClick={() => setIsEditing(true)}
                 className={`
+  min-w-0
   relative
   inline-block
-
+  max-w-full
+  overflow-hidden
   break-words
-whitespace-pre-wrap
-
   cursor-text
-
   text-zinc-800
   dark:text-zinc-100
 
@@ -336,13 +340,14 @@ text-red-400
 
 transition-all
 '
-                >
-                🗑️ Delete task
-                </button>
-        </motion.div>
+>
+    🗑️ Delete task
+</button>
+                </motion.div>
 )}
-</AnimatePresence>
-</div>
+            </AnimatePresence>
+        </div>
     </div>
+</div>
   )
 }
