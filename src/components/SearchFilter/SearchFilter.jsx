@@ -29,7 +29,7 @@ export default function SearchFilter({searchTerm, setSearchTerm}) {
             placeholder='Search for a task...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className='w-64 pl-14 py-3 bg-white rounded-full shadow-sm focus:outline-none focus:shadow-md transition-shadow'
+            className='w-64 pl-14 py-3 bg-white dark:text-black rounded-full shadow-sm focus:outline-none focus:shadow-md transition-shadow'
         />
         {searchTerm && (
             <button

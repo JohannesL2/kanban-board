@@ -234,7 +234,7 @@ export default function List({ sections, setSections, searchTerm }) {
             setShowPlaceholderDropdown(false);
           }}
           onKeyDown={handleKeyDown}
-          className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg dark:bg-white'
+          className='bg-white/40 rounded-2xl p-4 sm:p-4 text-lg dark:bg-white dark:text-black'
           animate={shake ? { x: [0, -10, 10, -10, 10, 0] } : { x: 0 }}
           transition={{ duration: 0.5 }}
           placeholder="Write section title..."

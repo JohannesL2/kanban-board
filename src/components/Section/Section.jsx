@@ -21,7 +21,6 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         transition,
         touchAction: "none",
         opacity: isDragging ? 0.6 : 1,
-        backgroundColor: sectionColor,
     };
     
     const handleAddTask = (e) => {
@@ -34,22 +33,6 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
     useEffect(() => {
         localStorage.setItem(`sectionColor-${section.id}`, sectionColor);
     }, [sectionColor, section.id]);
-
-    const getContrastColor = (hexColor) => {
-        if (!hexColor) return "#000";
-
-        const color = hexColor.replace("#", "");
-
-        const r = parseInt(color.substr(0, 2), 16);
-        const g = parseInt(color.substr(2, 2), 16);
-        const b = parseInt(color.substr(4, 2), 16);
-
-        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-        return luminance > 0.6 ? "#000000" : "#FFFFFF";
-    };
-
-    const textColor = getContrastColor(sectionColor);
 
     const haptic = useHaptic();
     const wasDragging = useRef(false);
@@ -65,10 +48,43 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
   return (
     <div
         ref={setNodeRef}
-        style={{ ...style, color: textColor }}
-        className={`p-4 bg-white/20 dark:bg-white rounded-2xl shadow-md mb-4 w-full max-w-full sm:max-w-sm transition
-            ${isDragging ? "bg-green-200/40" : "bg-white/20 dark:bg-white/10"}`}
+        style={{ ...style }}
+        className={`
+  group
+  relative
+  overflow-hidden
+  w-full
+  max-w-full
+  sm:max-w-sm
+  rounded-3xl
+  p-5
+  mb-4
+  border
+  border-white/20
+  bg-white/40
+  dark:bg-white/5
+  backdrop-blur-2xl
+  shadow-[0_8px_32px_rgba(0,0,0,0.12)]
+  transition-all
+  duration-300
+  hover:shadow-2xl
+  ${
+    isDragging
+      ? "scale-[1.02] ring-2 ring-blue-400/40"
+      : ""
+  }
+`}
         >
+            <div
+  className="
+    absolute
+    inset-0
+    bg-gradient-to-br
+    from-white/10
+    to-transparent
+    pointer-events-none
+  "
+/>
 
         {/* Section header */}
 <div className='flex justify-between items-center mb-3'>
@@ -83,31 +99,22 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
             scale: isDragging ? 1.3 : 1,
             opacity: isDragging ? 1 : 0.9,
             boxShadow: isDragging
-                ? "0 0 10px rgba(0,0,0,0.3"
+                ? "0 0 10px rgba(0,0,0,0.3)"
                 : "0 0 0 rgba(0,0,0,0)",
         }}
         >
             <div 
                 className='flex flex-col justify-center items-center gap-[3px] cursor-grab active:cursor-grabbing select-none'
             >
-                <span 
-                    className='block w-4 h-[3px] rounded'
-                    style={{ backgroundColor: textColor }}
-                ></span>
-                <span 
-                    className='block w-4 h-[3px] rounded'
-                    style={{ backgroundColor: textColor }}
-                ></span>
-                <span 
-                    className='block w-4 h-[3px] rounded'
-                    style={{ backgroundColor: textColor }}
-                ></span>
+                <span className="block w-4 h-[3px] rounded bg-zinc-900 dark:bg-zinc-100"></span>
+                <span className="block w-4 h-[3px] rounded bg-zinc-900 dark:bg-zinc-100"></span>
+                <span className="block w-4 h-[3px] rounded bg-zinc-900 dark:bg-zinc-100"></span>
 
             </div>
         </motion.span>
         <motion.h2
             layout
-            className='text-lg sm:text-xl font-semibold break-words select-none'
+            className='text-xl font-bold tracking-tight break-words select-none text-zinc-900 dark:text-zinc-100'
         >
                 {section.title}
         </motion.h2>
@@ -162,7 +169,13 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
             X
         </motion.button>
     </div>
-      <TaskProgress section={section} textColor={textColor}/>
+
+    <div
+  className="mb-4 h-1.5 w-full rounded-full"
+  style={{ backgroundColor: sectionColor }}
+/>
+
+      <TaskProgress section={section} />
     {/* Task lista */}
     <SortableContext
         id={section.id}
@@ -171,7 +184,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
     >
     <div className='mb-3'>
         {section.tasks.length === 0 ? (
-            <p className='text-gray-400 italic text-sm sm:text-base' style={{ color: textColor + "CC" }}>No tasks yet...</p>) : (
+            <p className='text-zinc-500 dark:text-zinc-400 italic text-sm sm:text-base'>No tasks yet...</p>) : (
                 section.tasks.map((t) => (
                     <Task
                         key={t.id}
@@ -189,25 +202,72 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
 
     {/* Add task */}
     <div className="flex gap-2 flex-col">
-            <input 
-                type="text" 
-                value={task}
-                onChange={(e) => setTask(e.target.value)}
-                placeholder='Add task'
-                style={{
-                    backgroundColor: sectionColor,
-                    color: textColor,
-                }}
-                className='flex-grow border-2 rounded-lg p-2 focus:outline-none focus:ring-2 transition'
-            />
+            <input
+  type="text"
+  value={task}
+  onChange={(e) => setTask(e.target.value)}
+  placeholder="Add task"
+  className="
+    w-full
+
+    rounded-2xl
+    border
+    border-white/10
+
+    bg-white/50
+    dark:bg-white/5
+
+    px-4
+    py-3
+
+    backdrop-blur-xl
+
+    outline-none
+
+    transition-all
+    duration-300
+
+    focus:ring-2
+    focus:ring-blue-500/40
+
+    text-zinc-900
+dark:text-zinc-100
+    placeholder:text-slate-400
+  "
+/>
 
             <button
                 onClick={handleAddTask}
-                className='bg-green-500 hover:bg-green-600 dark:bg-zinc-100 dark:hover:bg-zinc-200 dark:text-black text-white font-bold px-4 py-2 rounded-lg transition cursor-pointer'
+                className="
+  rounded-2xl
+
+  bg-gradient-to-r
+  from-blue-500
+  to-indigo-600
+
+  px-4
+  py-3
+
+  font-semibold
+  text-white
+
+  shadow-lg
+  shadow-blue-500/20
+
+  transition-all
+  duration-300
+
+  hover:scale-[1.02]
+  hover:shadow-xl
+
+  active:scale-[0.98]
+
+  cursor-pointer
+"
             >
                 Add Task
             </button>
-            </div>
+        </div>
         </div>
   );
 }
