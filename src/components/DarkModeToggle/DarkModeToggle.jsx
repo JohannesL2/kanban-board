@@ -37,7 +37,7 @@ export default function DarkModeToggle() {
         dark:from-yellow-500 dark:to-orange-400
         shadow-md 
         hover:shadow-lg
-        text-white"
+        text-white cursor-pointer"
             >
                 <motion.div
                     key={darkMode ? 'sun' : 'moon'}
