@@ -221,7 +221,7 @@ export default function List({ sections, setSections, searchTerm }) {
   .filter(section => section.tasks.length > 0 || searchTerm === "");
 
   return (
-    <div className='p-6 w-full max-w-[1400px] mx-auto'>
+    <div className='p-6 w-full min-h-screen text-zinc-100'>
 <div className='flex justify-start mb-8'>
     <form onSubmit={createSection} className='flex items-center gap-3 bg-[#12131a]/60 border border-zinc-800/60 p-2 pl-3 rounded-xl shadow-xl max-w-md w-full'>
       <div className="relative flex-1">
@@ -236,7 +236,6 @@ export default function List({ sections, setSections, searchTerm }) {
               className='w-full bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-600 py-1.5'
               animate={shake ? { x: [0, -10, 10, -10, 10, 0] } : { x: 0 }}
               transition={{ duration: 0.5 }}
-              placeholder="Create column..."
             />
 
             {!title && !isMobile && (

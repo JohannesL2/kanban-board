@@ -22,23 +22,14 @@ function App({setTitle, setMessage}) {
   };
 
   return (
-    <div>
-    <main 
-      className='
-        min-h-screen
-        overflow-hidden
-        bg-[#08090c]
-        text-slate-200
-        transition-all
-        duration-500
-        pb-12
-      '
-    >
-      <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 left-[40%] h-[300px] w-[400px] rounded-full bg-purple-500/5 blur-[100px] pointer-events-none" />
-    
-      <div className='relative z-10'>
+    <div className="relative min-h-screen w-full bg-[#0d111b] text-slate-200">
+      
+      {/* Bakgrundsljus (Auror) - Nu med den nya, krispiga CSS-klassen */}
+      <div className="bg-blur-glow top-[-10%] left-[-10%] h-[500px] w-[500px] bg-blue-600/10 blur-[120px]" />
+      <div className="bg-blur-glow bottom-[-10%] right-[-10%] h-[500px] w-[500px] bg-indigo-500/10 blur-[120px]" />
+      <div className="bg-blur-glow bottom-10 left-[40%] h-[300px] w-[400px] bg-purple-500/5 blur-[100px]" />
+      
+    <main className='relative z-10 min-h-screen w-full flex flex-col pb-12'>
         <Header 
           resetBoard={resetBoard}
           searchTerm={searchTerm} 
@@ -49,9 +40,8 @@ function App({setTitle, setMessage}) {
           setSections={setSections} 
           searchTerm={searchTerm}
         />
-      </div>
     </main>
-    </div>
+  </div>
   )
 }
 
