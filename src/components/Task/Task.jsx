@@ -102,16 +102,47 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         {...listeners}
         {...attributes}
         style={style}
-        className={`flex justify-between items-center bg-black/10 rounded-lg p-2 mb-2 ${isEditing ? "" : "active:cursor-grabbing"} border-2 ${priorityColor}`}
+        className={`
+  group
+  relative
+  ${isMenuOpen ? "z-50" : "z-0"}
+  flex
+  justify-between
+  items-start
+
+  rounded-2xl
+  p-4
+  mb-3
+
+  border
+  ${priorityColor}
+
+  bg-white/40
+  dark:bg-white/5
+
+  backdrop-blur-xl
+
+  shadow-md
+  shadow-black/5
+
+  transition-all
+  duration-300
+
+  hover:shadow-xl
+  hover:-translate-y-[1px]
+
+  ${isDragging ? "scale-[1.01] rotate-[0.3deg]" : ""}
+  ${isEditing ? "" : "active:cursor-grabbing"}
+`}
         >
 
-        <div className='flex justify-between items-center gap-2 flex-1'>
+        <div className='flex justify-between items-start gap-2 flex-1'>
             <input
                 type='checkbox'
                 checked={done}
                 onChange={handleToggleDone}
                 onPointerDown={(e) => e.stopPropagation()}
-                className='accent-green-500 w-4 h-4 cursor-pointer'
+                className='accent-green-500 w-5 h-5 rounded-md cursor-pointer'
             />
 
     <div className='relative flex flex-col px-4' onPointerDown={(e) => e.stopPropagation()}>
@@ -131,9 +162,23 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 whileHover={{ scale: 1.02, opacity: 0.9 }}
                 transition={{ type: "spring", stiffness: 300 }}
                 onClick={() => setIsEditing(true)}
-                className={`relative group inline-block ${FONT_SIZE_CLASSES[fontSize] || "text-base"} ${
-                    bold ? "font-bold" : "font-normal"
-                } truncate max-w-[200px] cursor-text`}
+                className={`
+  relative
+  inline-block
+
+  break-words
+whitespace-pre-wrap
+
+  cursor-text
+
+  text-zinc-800
+  dark:text-zinc-100
+
+  ${FONT_SIZE_CLASSES[fontSize] || "text-base"}
+  ${bold ? "font-bold" : "font-medium"}
+
+  ${done ? "line-through opacity-50" : ""}
+`}
             >
                 {text}
             </motion.span>
@@ -160,9 +205,25 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                     e.stopPropagation();
                     setIsMenuOpen(!isMenuOpen);
                 }}
-                className={`p-2 rounded-full shadow-md text-sm hover:scale-110 transition-transform
-                    ${isMenuOpen ? "bg-black/15 text-white shadow-inner" : "bg-white/5"}
-                    `}
+                className={`
+  p-2.5
+  rounded-xl
+
+  bg-white/40
+  dark:bg-white/10
+
+  text-zinc-700
+  dark:text-zinc-200
+
+  backdrop-blur-md
+
+  hover:scale-110
+  hover:bg-white/60
+  dark:hover:bg-white/20
+
+  transition-all
+  duration-200
+`}
             >
                 ⚙️
             </button>
@@ -173,12 +234,42 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className='absolute right-0 top-full mt-1 z-10 flex flex-col gap-2 bg-black/30 backdrop-blur-sm p-2 rounded-md shadow-lg border border-gray-300'
+            className='
+absolute right-0 top-full mt-2 z-9999
+flex flex-col gap-2
+
+
+p-3
+min-w-[140px]
+
+bg-white/70
+dark:bg-zinc-900/80
+
+backdrop-blur-xl
+border border-white/20
+rounded-2xl
+shadow-2xl
+'
             >
             <select
                 value={fontSize}
                 onChange={handleFontSizeChange}
-                className='border rounded px-2 py-1 text-sm'
+                className='
+rounded-xl
+border border-white/10
+
+bg-white/60
+dark:bg-white/5
+
+px-3
+py-2
+
+text-sm
+text-zinc-800
+dark:text-zinc-100
+
+outline-none
+'
             >
                 <option value="xs">XS</option>
                 <option value="sm">SM</option>
@@ -200,7 +291,22 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             <select
                 value={priority}
                 onChange={handlePriorityChange}
-                className='border rounded px-2 py-1 text-sm'
+                className='
+rounded-xl
+border border-white/10
+
+bg-white/60
+dark:bg-white/5
+
+px-3
+py-2
+
+text-sm
+text-zinc-800
+dark:text-zinc-100
+
+outline-none
+'
             >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -213,7 +319,23 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                     e.stopPropagation();
                     deleteTask(sectionId, task.id);
             }}
-            className='text-red-600 hover:bg-red-100 border border-red-300 rounded px-2 py-1 text-sm font-medium'
+            className='
+rounded-xl
+
+border border-red-500/20
+
+bg-red-500/10
+hover:bg-red-500/20
+
+px-3
+py-2
+
+text-sm
+font-medium
+text-red-400
+
+transition-all
+'
                 >
                 🗑️ Delete task
                 </button>

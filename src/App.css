@@ -2,3 +2,8 @@
   margin: 0 auto;
   text-align: center;
 }
+
+html,
+body {
+  overscroll-behavior: none;
+}

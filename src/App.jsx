@@ -38,6 +38,7 @@ function App({setTitle, setMessage}) {
     dark:text-white
       transition-all
       duration-500
+      pb-12
       '
     >
       <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />

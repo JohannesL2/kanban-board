@@ -52,7 +52,6 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
         className={`
   group
   relative
-  overflow-hidden
   w-full
   max-w-full
   sm:max-w-sm
