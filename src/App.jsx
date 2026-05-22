@@ -22,7 +22,7 @@ function App({setTitle, setMessage}) {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#0d111b] text-slate-200">
+    <div className="relative min-h-screen w-full bg-[#0e1118] text-slate-200">
       
       {/* Bakgrundsljus (Auror) - Nu med den nya, krispiga CSS-klassen */}
       <div className="bg-blur-glow top-[-10%] left-[-10%] h-[500px] w-[500px] bg-blue-600/10 blur-[120px]" />

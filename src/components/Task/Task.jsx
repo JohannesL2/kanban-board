@@ -175,7 +175,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
   overflow-hidden
   break-words
   cursor-text
-  text-zinc-800
+  text-zinc-100
   dark:text-zinc-100
 
   ${FONT_SIZE_CLASSES[fontSize] || "text-base"}
@@ -212,19 +212,10 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 className={`
   p-2.5
   rounded-xl
-
-  bg-white/40
-  dark:bg-white/10
-
   text-zinc-700
   dark:text-zinc-200
-
   backdrop-blur-md
-
   hover:scale-110
-  hover:bg-white/60
-  dark:hover:bg-white/20
-
   transition-all
   duration-200
 `}
