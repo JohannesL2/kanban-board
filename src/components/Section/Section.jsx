@@ -8,6 +8,7 @@ import { useHaptic } from '../../hooks/useHaptic';
 
 export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
     const [task, setTask] = useState("");
+    const [description, setDescription] = useState("");
     const [isAdding, setIsAdding] = useState(false);
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
@@ -27,8 +28,9 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
             setIsAdding(false);
             return;
         }
-        addTask(section.id, task);
+        addTask(section.id, task, description);
         setTask("");
+        setDescription("")
         setIsAdding(false);
     };
 
@@ -145,12 +147,27 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
                     type="text"
                     value={task}
                     onChange={(e) => setTask(e.target.value)}
-                    onBlur={handleAddTask}
+                    // onBlur={handleAddTask}
                     onKeyDown={(e) => e.key === "Enter" && handleAddTask(e)}
                     placeholder="What's on your mind?"
                     autoFocus
                     className="w-full rounded-xl border border-zinc-800 bg-[#181922] px-3 py-2 text-xs text-zinc-100 outline-none focus:border-zinc-700 placeholder:text-zinc-600"
                 />
+                <textarea 
+                    value={description} 
+                    onChange={(e) => setDescription(e.target.value)} 
+                    onPointerDown={(e) => e.stopPropagation()} 
+                    placeholder="Optional description..." 
+                    className="w-full rounded-xl border border-zinc-800 bg-[#181922] px-3 py-2 text-xs text-zinc-300 outline-none focus:border-zinc-700 placeholder:text-zinc-600 whitespace-pre-wrap" 
+                />
+                <button
+                    type="button"
+                    onClick={handleAddTask}
+                    disabled={!task.trim()}
+                    className="w-full rounded-xl bg-zinc-900/40 px-3 py-2 text-xs font-medium text-zinc-200 hover:bg-zinc-800 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+>
+  Save task
+</button>
             </motion.div>
         ) : (
             <button

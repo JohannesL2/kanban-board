@@ -22,6 +22,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(task.text);
+    const [description, setDescription] = useState(task.description || "");
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     useEffect(() => {
@@ -39,6 +40,11 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const handleTextChange = (e) => setText(e.target.value);
 
+    const handleDescriptionChange = (e) => setDescription(e.target.value);
+    const handleDescriptionBlur = () => {
+        updateTask(sectionId, task.id, { description, updatedAt: Date.now() });
+    };
+    
     const handleTextBlur = () => {
         setIsEditing(false);
         updateTask(sectionId, task.id, { text, updatedAt: Date.now() });
@@ -200,6 +206,18 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             >
                 Created: {new Date(task.id).toLocaleDateString()}
             </span>
+            <AnimatePresence> 
+                {task.description && ( 
+                    <motion.p 
+                        initial={{ opacity: 0, height: 0 }} 
+                        animate={{ opacity: 1, height: "auto" }} 
+                        exit={{ opacity: 0, height: 0 }} 
+                        transition={{ duration: 0.16 }} 
+                        className="text-sm text-zinc-400 mt-2 whitespace-pre-wrap break-words" >
+                             {task.description} 
+                        </motion.p> 
+                    )} 
+            </AnimatePresence>
         </div>
                 </div>
 

@@ -71,7 +71,7 @@ export default function List({ sections, setSections, searchTerm }) {
     setMessage("")
   };
 
-  const addTask = (sectionId, taskText) => {
+  const addTask = (sectionId, taskText,description) => {
     if (taskText.trim() === "") return;
 
     setSections(
@@ -79,7 +79,7 @@ export default function List({ sections, setSections, searchTerm }) {
         if (section.id === sectionId) {
             return {
                 ...section,
-                tasks: [...section.tasks, { id: Date.now(), text: taskText }]
+                tasks: [...section.tasks, { id: Date.now(), text: taskText, description:description || "" }]
             }
         }
         return section
