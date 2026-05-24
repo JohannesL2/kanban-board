@@ -4,7 +4,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { motion, AnimatePresence } from "framer-motion";
 import { useHaptic } from '../../hooks/useHaptic';
 
-export default function Task({ task, sectionId, deleteTask, updateTask }) {
+export default function Task({ task, sectionId, deleteTask, updateTask, onTaskClick }) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: { sectionId },
@@ -22,7 +22,6 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(task.text);
-    const [description, setDescription] = useState(task.description || "");
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     useEffect(() => {
@@ -40,10 +39,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
 
     const handleTextChange = (e) => setText(e.target.value);
 
-    const handleDescriptionChange = (e) => setDescription(e.target.value);
-    const handleDescriptionBlur = () => {
-        updateTask(sectionId, task.id, { description, updatedAt: Date.now() });
-    };
+    
     
     const handleTextBlur = () => {
         setIsEditing(false);
@@ -108,6 +104,11 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         {...listeners}
         {...attributes}
         style={style}
+        onClick={() => {
+            if(!isDragging){
+            onTaskClick(task)
+            }
+        }}
         className={`
                 group
                 relative
@@ -153,6 +154,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 checked={done}
                 onChange={handleToggleDone}
                 onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()} 
                 className='accent-green-500 w-5 h-5 rounded-md cursor-pointer'
             />
 
@@ -172,7 +174,10 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             <motion.span
                 whileHover={{ scale: 1.02, opacity: 0.9 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                onClick={() => setIsEditing(true)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsEditing(true)
+                }}
                 className={`
   min-w-0
   relative
