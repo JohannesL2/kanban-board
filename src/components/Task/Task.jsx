@@ -4,7 +4,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { motion, AnimatePresence } from "framer-motion";
 import { useHaptic } from '../../hooks/useHaptic';
 
-export default function Task({ task, sectionId, deleteTask, updateTask }) {
+export default function Task({ task, sectionId, deleteTask, updateTask, onTaskClick }) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: { sectionId },
@@ -108,6 +108,11 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
         {...listeners}
         {...attributes}
         style={style}
+        onClick={() => {
+            if(!isDragging){
+            onTaskClick(task)
+            }
+        }}
         className={`
                 group
                 relative
@@ -153,6 +158,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
                 checked={done}
                 onChange={handleToggleDone}
                 onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()} 
                 className='accent-green-500 w-5 h-5 rounded-md cursor-pointer'
             />
 
@@ -172,7 +178,10 @@ export default function Task({ task, sectionId, deleteTask, updateTask }) {
             <motion.span
                 whileHover={{ scale: 1.02, opacity: 0.9 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                onClick={() => setIsEditing(true)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsEditing(true)
+                }}
                 className={`
   min-w-0
   relative

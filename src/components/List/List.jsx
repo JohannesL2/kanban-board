@@ -7,6 +7,7 @@ import {
 import { arrayMove } from '@dnd-kit/sortable';
 import Section from '@/components/Section';
 import { motion, AnimatePresence } from "framer-motion";
+import Modal from '@/components/TaskModal/Modal.jsx';
 
 export default function List({ sections, setSections, searchTerm }) {
   const [title, setTitle] = useState("")
@@ -17,6 +18,10 @@ export default function List({ sections, setSections, searchTerm }) {
   const intervalRef = useRef(null);
   const [showPlaceholderDropdown, setShowPlaceholderDropdown] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [taskIsOpen, setTaskIsOpen] = useState(false);
+
 
   const placeholderExamples = [
   "Backlog 🧠",
@@ -97,6 +102,16 @@ export default function List({ sections, setSections, searchTerm }) {
         return section
     }))
   }
+
+  const handleTaskClick = (task) => {
+    setSelectedTask(task);
+    setTaskIsOpen(true);
+  };
+  const closeModal = () => {
+    setTaskIsOpen(false);
+    setSelectedTask(null);
+  };
+
 
   const deleteSection = (sectionId) => {
     setSections(sections.filter(section => section.id !== sectionId))
@@ -318,11 +333,18 @@ export default function List({ sections, setSections, searchTerm }) {
                 updateTask={updateTask}
                 deleteSection={deleteSection}
                 sections={sections}
+                onTaskClick={handleTaskClick}  
+
             />
         ))}
         </div>
         </SortableContext>
     </DndContext>
+    <Modal
+      taskIsOpen={taskIsOpen}
+      selectedTask={selectedTask}
+      onClose={closeModal}
+    />
 </div>
     )
 }

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import TaskProgress from '../TaskProgress/TaskProgress';
 import { useHaptic } from '../../hooks/useHaptic';
 
-export default function Section({ section, addTask, deleteTask, updateTask, deleteSection }) {
+export default function Section({ section, addTask, deleteTask, updateTask, deleteSection, onTaskClick }) {
     const [task, setTask] = useState("");
     const [description, setDescription] = useState("");
     const [isAdding, setIsAdding] = useState(false);
@@ -126,6 +126,7 @@ export default function Section({ section, addTask, deleteTask, updateTask, dele
                                 sectionId={section.id}
                                 deleteTask={deleteTask}
                                 updateTask={updateTask}
+                                onTaskClick={onTaskClick} 
                             />
                         ))
                     )}
