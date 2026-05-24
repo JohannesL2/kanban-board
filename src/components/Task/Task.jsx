@@ -22,7 +22,6 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
 
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(task.text);
-    const [description, setDescription] = useState(task.description || "");
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     useEffect(() => {
@@ -40,10 +39,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
 
     const handleTextChange = (e) => setText(e.target.value);
 
-    const handleDescriptionChange = (e) => setDescription(e.target.value);
-    const handleDescriptionBlur = () => {
-        updateTask(sectionId, task.id, { description, updatedAt: Date.now() });
-    };
+    
     
     const handleTextBlur = () => {
         setIsEditing(false);
