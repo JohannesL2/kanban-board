@@ -116,6 +116,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
                 flex
                 flex-col
                 gap-3
+                overflow-hidden
 
                 rounded-xl
                 p-4
@@ -141,14 +142,14 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
             `}
         >
 
-        <div className='flex justify-between items-center w-full'>
+        <div className='flex justify-between items-center gap-3 min-w-0 w-full'>
             <div className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${priorityColor.bg} ${priorityColor.text}`}
             >
                 <span className={`w-1.5 h-1.5 rounded-full ${priorityColor.dot}`} />
                 {priorityColor.label}
             </div>
 
-<div className='flex items-center gap-2'>
+<div className='flex min-w-0 flex-1 items-center justify-end gap-2'>
             <input
                 type='checkbox'
                 checked={done}
@@ -158,7 +159,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
                 className='accent-green-500 w-5 h-5 rounded-md cursor-pointer'
             />
 
-    <div className='relative flex flex-col px-4' onPointerDown={(e) => e.stopPropagation()}>
+    <div className='relative flex min-w-0 flex-1 flex-col px-2 sm:px-4' onPointerDown={(e) => e.stopPropagation()}>
         {isEditing ? (
             <input
                 value={text}
@@ -180,11 +181,11 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
                 }}
                 className={`
   min-w-0
-  relative
-  inline-block
+  block
+  w-full
   max-w-full
   overflow-hidden
-  break-words
+  truncate
   cursor-text
   text-zinc-100
   dark:text-zinc-100
@@ -218,7 +219,7 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
                         animate={{ opacity: 1, height: "auto" }} 
                         exit={{ opacity: 0, height: 0 }} 
                         transition={{ duration: 0.16 }} 
-                        className="text-sm text-zinc-400 mt-2 whitespace-pre-wrap break-words" >
+                        className="mt-2 line-clamp-3 overflow-hidden break-words text-sm text-zinc-400" >
                              {task.description} 
                         </motion.p> 
                     )} 
