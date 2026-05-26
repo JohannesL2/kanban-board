@@ -82,7 +82,7 @@ export default function Modal({ taskIsOpen, selectedTask, onClose }) {
                             {/* Title */}
                             <h2
                                 id="modal-title"
-                                className={`text-2xl font-bold text-white mb-4 text-center ${selectedTask.bold ? 'font-black' : ''}`}
+                                className={`text-2xl font-bold text-white mb-4 text-center break-words ${selectedTask.bold ? 'font-black' : ''}`}
                             >
                                 {selectedTask.text}
                             </h2>
@@ -110,7 +110,7 @@ export default function Modal({ taskIsOpen, selectedTask, onClose }) {
                                 </h3>
                                 <div
                                     id="modal-description"
-                                    className="text-zinc-300 leading-relaxed bg-zinc-900/30 rounded-lg p-4 min-h-[120px] border border-zinc-800/20 text-center"
+                                    className="text-zinc-300 leading-relaxed bg-zinc-900/30 rounded-lg p-4 min-h-[120px] border border-zinc-800/20 text-center break-words whitespace-pre-wrap"
                                 >
                                     {selectedTask.description && selectedTask.description.trim() !== '' ? (
                                         selectedTask.description

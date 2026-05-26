@@ -113,6 +113,8 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
                 group
                 relative
                 ${isMenuOpen ? "z-50" : "z-0"}
+                w-full
+                box-border
                 flex
                 flex-col
                 gap-3
@@ -141,24 +143,23 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
             `}
         >
 
-        <div className='flex justify-between items-center w-full'>
-            <div className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${priorityColor.bg} ${priorityColor.text}`}
-            >
+        <div className='flex justify-between items-start w-full gap-2'>
+            <div className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium shrink-0 ${priorityColor.bg} ${priorityColor.text}`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${priorityColor.dot}`} />
                 {priorityColor.label}
             </div>
 
-<div className='flex items-center gap-2'>
+        <div className='flex items-start gap-2 flex-1 min-w-0'>
             <input
                 type='checkbox'
                 checked={done}
                 onChange={handleToggleDone}
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => e.stopPropagation()} 
-                className='accent-green-500 w-5 h-5 rounded-md cursor-pointer'
+                className='accent-green-500 w-5 h-5 rounded-md cursor-pointer shrink-0 mt-0.5'
             />
 
-    <div className='relative flex flex-col px-4' onPointerDown={(e) => e.stopPropagation()}>
+    <div className='relative flex flex-col px-2 flex-1 min-w-0' onPointerDown={(e) => e.stopPropagation()}>
         {isEditing ? (
             <input
                 value={text}
@@ -179,21 +180,17 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
                     setIsEditing(true)
                 }}
                 className={`
-  min-w-0
-  relative
-  inline-block
-  max-w-full
-  overflow-hidden
-  break-words
-  cursor-text
-  text-zinc-100
-  dark:text-zinc-100
-
-  ${FONT_SIZE_CLASSES[fontSize] || "text-base"}
-  ${bold ? "font-bold" : "font-medium"}
-
-  ${done ? "line-through opacity-50" : ""}
-`}
+                    block
+                    w-full
+                    truncate 
+                    
+                    cursor-text
+                    text-zinc-100
+                    dark:text-zinc-100
+                    ${FONT_SIZE_CLASSES[fontSize] || "text-base"}
+                    ${bold ? "font-bold" : "font-medium"}
+                    ${done ? "line-through opacity-50" : ""}
+                `}
             >
                 {text}
             </motion.span>
@@ -218,15 +215,25 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
                         animate={{ opacity: 1, height: "auto" }} 
                         exit={{ opacity: 0, height: 0 }} 
                         transition={{ duration: 0.16 }} 
-                        className="text-sm text-zinc-400 mt-2 whitespace-pre-wrap break-words" >
-                             {task.description} 
-                        </motion.p> 
-                    )} 
+                        className={`
+                            /* 1. Typography constraints */
+                            line-clamp-2 
+                            break-words
+                            
+                            /* 2. Existing styling classes */
+                            text-sm 
+                            text-zinc-400 
+                            mt-2 
+                        `} 
+                    >
+                        {task.description} 
+                    </motion.p> 
+                )} 
             </AnimatePresence>
         </div>
-                </div>
+    </div>
 
-<div className='relative task-menu' onPointerDown={(e) => e.stopPropagation()}>
+<div className='relative task-menu shrink-0' onPointerDown={(e) => e.stopPropagation()}>
             <button
                 onClick={(e) => {
                     e.stopPropagation();
