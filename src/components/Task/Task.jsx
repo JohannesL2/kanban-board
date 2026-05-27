@@ -233,140 +233,159 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
         </div>
     </div>
 
-<div className='relative task-menu shrink-0' onPointerDown={(e) => e.stopPropagation()}>
+    <div className='relative task-menu shrink-0' onPointerDown={(e) => e.stopPropagation()}>
             <button
                 onClick={(e) => {
                     e.stopPropagation();
                     setIsMenuOpen(!isMenuOpen);
                 }}
                 className={`
-  p-2.5
-  rounded-xl
-  text-zinc-700
-  dark:text-zinc-200
-  backdrop-blur-md
-  hover:scale-110
-  transition-all
-  duration-200
-`}
+                    p-2.5
+                    rounded-xl
+                    text-zinc-500
+                    hover:text-zinc-200
+                    hover:bg-zinc-800/50
+                    transition-all
+                    duration-200
+                    focus:outline-none
+                `}
+                aria-label="Task settings"
             >
-                ⚙️
+
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="18" 
+                height="18" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className={`transition-transform duration-300 ${isMenuOpen ? "rotate-90" : "rotate-0"}`}
+            >
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
             </button>
-<AnimatePresence>
-{isMenuOpen && (
+        <AnimatePresence>
+        {isMenuOpen && (
         <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.95, y: -5 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -5 }}
             transition={{ duration: 0.15 }}
             className='
-absolute right-0 top-full mt-2 z-9999
-flex flex-col gap-2
+                /* Refined Container: Dark glassmorphism matching the card */
+                absolute right-0 top-full mt-2 z-[9999]
+                flex flex-col gap-2.5
+                p-3
+                min-w-[160px]
+                bg-[#181922]/95
+                backdrop-blur-xl
+                border border-zinc-700/60
+                rounded-xl
+                shadow-2xl
+                ring-1 ring-black/50
+            '
+        >
+            <div className="flex gap-2">
+                <select
+                    value={fontSize}
+                    onChange={handleFontSizeChange}
+                    className='
+                        flex-1
+                        rounded-lg
+                        border border-zinc-700
+                        bg-zinc-800/50
+                        px-2 py-1.5
+                        text-xs font-medium
+                        text-zinc-200
+                        outline-none
+                        cursor-pointer
+                        hover:border-zinc-500
+                        transition-colors
+                    '
+                >
+                    <option value="xs">XS Size</option>
+                    <option value="sm">SM Size</option>
+                    <option value="base">BASE Size</option>
+                    <option value="lg">LG Size</option>
+                    <option value="xl">XL Size</option>
+                    <option value="2xl">2XL Size</option>
+                </select>
 
-
-p-3
-min-w-[140px]
-
-bg-white/70
-dark:bg-zinc-900/80
-
-backdrop-blur-xl
-border border-white/20
-rounded-2xl
-shadow-2xl
-'
-            >
-            <select
-                value={fontSize}
-                onChange={handleFontSizeChange}
-                className='
-rounded-xl
-border border-white/10
-
-bg-white/60
-dark:bg-white/5
-
-px-3
-py-2
-
-text-sm
-text-zinc-800
-dark:text-zinc-100
-
-outline-none
-'
-            >
-                <option value="xs">XS</option>
-                <option value="sm">SM</option>
-                <option value="base">BASE</option>
-                <option value="lg">LG</option>
-                <option value="xl">XL</option>
-                <option value="2xl">2XL</option>
-            </select>
-
-            <button
-                onClick={handleBoldToggle}
-                className={`px-2 py-1 rounded border text-sm ${
-                    bold ? "bg-black/5 font-bold" : "bg-black/10"
-                }`}
-            >
-                B
-            </button>
+                <button
+                    onClick={handleBoldToggle}
+                    className={`
+                        px-3 py-1.5 
+                        rounded-lg 
+                        border 
+                        text-xs font-bold 
+                        transition-all
+                        ${bold 
+                            ? "bg-zinc-200 text-zinc-900 border-zinc-200 shadow-sm" 
+                            : "bg-zinc-800/50 text-zinc-400 border-zinc-700 hover:text-zinc-200 hover:border-zinc-500"
+                        }
+                    `}
+                    title="Toggle Bold"
+                >
+                    B
+                </button>
+            </div>
 
             <select
                 value={priority}
                 onChange={handlePriorityChange}
                 className='
-rounded-xl
-border border-white/10
-
-bg-white/60
-dark:bg-white/5
-
-px-3
-py-2
-
-text-sm
-text-zinc-800
-dark:text-zinc-100
-
-outline-none
-'
+                    w-full
+                    rounded-lg
+                    border border-zinc-700
+                    bg-zinc-800/50
+                    px-2 py-1.5
+                    text-xs font-medium
+                    text-zinc-200
+                    outline-none
+                    cursor-pointer
+                    hover:border-zinc-500
+                    transition-colors
+                '
             >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
             </select>
 
-            {/* Delete button */}
+            <div className="h-px w-full bg-zinc-700/50 my-0.5"></div>
+
             <button 
                 onClick={(e) => {
                     e.stopPropagation();
                     deleteTask(sectionId, task.id);
-            }}
-            className='
-rounded-xl
-
-border border-red-500/20
-
-bg-red-500/10
-hover:bg-red-500/20
-
-px-3
-py-2
-
-text-sm
-font-medium
-text-red-400
-
-transition-all
-'
->
-    🗑️ Delete task
-</button>
-                </motion.div>
-)}
-            </AnimatePresence>
+                }}
+                className='
+                    w-full
+                    flex items-center justify-center gap-2
+                    rounded-lg
+                    border border-red-500/20
+                    bg-red-500/10
+                    hover:bg-red-500/20
+                    px-3 py-2
+                    text-xs font-medium
+                    text-red-400
+                    transition-all
+                '
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                </svg>
+                Delete task
+            </button>
+        </motion.div>
+    )}
+</AnimatePresence>
         </div>
     </div>
 </div>
