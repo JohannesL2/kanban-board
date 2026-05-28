@@ -22,6 +22,7 @@
 - **React** – Frontend framework
 - **Tailwind CSS** – Styling
 - **JavaScript (ES6)** – Functionality
+- **Dexie.js** – Asynchronous database wrapper for IndexedDB storage
 - **Date.now()** – Unique IDs for tasks and sections
 
 ---
