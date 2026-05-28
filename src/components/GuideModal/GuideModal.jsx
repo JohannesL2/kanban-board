@@ -2,6 +2,25 @@ import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function GuideModal({isOpen, onClose}) {
+  const guideSteps = [
+    {
+      title: 'Shape your workflow',
+      description: 'Create sections for each stage of your process, from Backlog to Done.',
+    },
+    {
+      title: 'Capture every task',
+      description: 'Use the "+" button to add tasks directly where they belong.',
+    },
+    {
+      title: 'Keep work moving',
+      description: 'Drag tasks between sections as priorities change or progress is made.',
+    },
+    {
+      title: 'Finish with clarity',
+      description: 'Move completed work into Done so your board always reflects what is next.',
+    },
+  ];
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -31,35 +50,31 @@ export default function GuideModal({isOpen, onClose}) {
             <DialogPanel>
               <DialogTitle
                 as="h3"
-                className="text-base/7 font-medium text-white"
+                className="text-lg font-semibold text-white"
               >
-                How to use:
+                Make the most of your board
               </DialogTitle>
-            <div className='mt-4 text-sm text-white/70 leading-relaxed'>
-            <p>
-              Welcome to your <strong>Kanban Board</strong>!
-            </p>
-            <ol className='list-decimal list-inside mt-2 space-y-1'>
-              <li>
-                Organize your workflow by creating sections like{' '}
-                <strong>Backlog</strong> and{' '}
-                <strong>Work in Progress</strong>
-              </li>
-              <li>Add tasks to each section using the "+" button.</li>
-              <li>Drag tasks between sections to update their status.</li>
-              <li>Move completed tasks to the <strong>Done</strong> section.</li>
-            </ol>
-            <p className='mt-4'>
-                Keep your tasks organized and your workflow smooth!
-            </p>
-
-  <p className='text-red-400 text-medium mt-5'>
-    some functions may not be available yet
-  </p>
-</div>
-              <div className="mt-4">
+              <div className='mt-4 text-sm leading-relaxed text-zinc-300'>
+                <p className='text-zinc-400'>
+                  A focused Kanban flow helps you plan, track, and finish work without losing momentum.
+                </p>
+                <ol className='mt-5 space-y-3'>
+                  {guideSteps.map((step, index) => (
+                    <li key={step.title} className='flex gap-3 rounded-xl border border-white/10 bg-white/5 p-3'>
+                      <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-500/15 text-xs font-semibold text-indigo-200 ring-1 ring-indigo-400/30'>
+                        {index + 1}
+                      </span>
+                      <div>
+                        <p className='font-medium text-zinc-100'>{step.title}</p>
+                        <p className='mt-1 text-zinc-300'>{step.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div className="mt-6 flex justify-end">
                 <Button
-                  className="inline-flex items-center gap-2 rounded-md bg-gray-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white data-hover:bg-gray-600 data-open:bg-gray-700"
+                  className="inline-flex items-center justify-center rounded-lg bg-indigo-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-colors focus:not-data-focus:outline-none data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-indigo-200 data-hover:bg-indigo-400 data-open:bg-indigo-500"
                   onClick={onClose}
                 >
                   Got it, thanks!
