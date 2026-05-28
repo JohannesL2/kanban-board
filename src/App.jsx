@@ -2,24 +2,57 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Header from '@/components/Header';
 import List from '@/components/List';
+// Import database
+import { db } from './db';
 
 function App({setTitle, setMessage}) {
-  const [sections, setSections] = useState(() => {
-    const saved = localStorage.getItem('sections');
-    return saved ? JSON.parse(saved) : [];
-  });
-
+  const [sections, setSections] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Get data from Dexie
   useEffect(() => {
-    localStorage.setItem('sections', JSON.stringify(sections));
-  }, [sections]);
+    async function loadData() {
+      try {
+        const savedSections = await db.sections.toArray();
+        setSections(savedSections);
+      } catch (error) {
+        console.error("Could not read data from Dexie:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
 
-    const resetBoard = () => {
-    setSections([]);
-    setTitle("");
-    setMessage("");
-  };
+  // Save data to Dexie when sections are changed
+  useEffect(() => {
+    if (loading) return;
+
+    async function saveData() {
+      try {
+      const sectionsCopy = structuredClone(sections);
+
+      await db.sections.clear();
+      await db.sections.bulkPut(sectionsCopy);
+      } catch (error) {
+        console.error("Could not save data to Dexie:", error);
+      }
+    }
+    saveData();
+  }, [sections, loading]);
+
+
+    const resetBoard = async () => {
+      await db.sections.clear();
+      setSections([]);
+      setTitle("");
+      setMessage("");
+    };
+
+    if (loading) {
+      return <div className="min-h-screen bg-[#0e1118] text-slate-200 flex items-center justify-center">Loading...</div>;
+    }
 
   return (
     <div className="relative min-h-screen w-full bg-[#0e1118] text-slate-200">
