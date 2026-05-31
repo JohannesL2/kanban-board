@@ -38,8 +38,6 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
     }, []);
 
     const handleTextChange = (e) => setText(e.target.value);
-
-    
     
     const handleTextBlur = () => {
         setIsEditing(false);
@@ -79,6 +77,29 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
         updateTask(sectionId, task.id, { done: newDone });
     };
 
+    const formatTimeAgo = (timestamp) => {
+        const date = new Date(Number(timestamp) || timestamp);
+        const now = new Date();
+        const diffInSeconds = Math.floor((now - date) / 1000);
+
+        if (diffInSeconds < 60) return `Just Now`;
+        
+        const diffInMinutes = Math.floor(diffInSeconds / 60);
+        if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+        const diffInHours = Math.floor(diffInMinutes / 60);
+        if (diffInHours < 24) return `${diffInHours}h ago`;
+
+        const diffInDays = Math.floor(diffInHours / 24);
+        if (diffInDays < 7) return `${diffInDays}d ago`;
+
+        return date.toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
 
     const priorityColor = 
         priority === "high"
@@ -196,18 +217,15 @@ export default function Task({ task, sectionId, deleteTask, updateTask, onTaskCl
             </motion.span>
         )}
             {task.updatedAt && (
-                <span 
-                    className='text-xs' 
-                >
-                    Updated: {new Date(task.updatedAt).toLocaleDateString()}
+                <span className='text-xs text-zinc-500 truncate'>
+                    Updated: {formatTimeAgo(task.updatedAt)}
                 </span>
             )}
 
-            <span 
-                className='text-xs mt-1 text-nowrap'
-            >
-                Created: {new Date(task.id).toLocaleDateString()}
+            <span className='text-xs mt-1 text-zinc-500 truncate'>
+                Created: {formatTimeAgo(task.id)}
             </span>
+
             <AnimatePresence> 
                 {task.description && ( 
                     <motion.p 
