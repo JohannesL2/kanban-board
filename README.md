@@ -1,5 +1,10 @@
 # 📝 Kanban board
 
+### ⚡ Quick Contribution (Launch in 1-Click)
+Don't want to clone it locally? Fix issues directly in your browser:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/JohannesL2/kanban-board)
+
 ![Build Status](https://github.com/JohannesL2/kanban-board/actions/workflows/ci.yml/badge.svg)
 [![Good First Issues](https://img.shields.io/github/issues/JohannesL2/kanban-board/good%20first%20issue?color=7B61FF&label=good%20first%20issues)](https://github.com/JohannesL2/kanban-board/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
 [![Help Wanted](https://img.shields.io/github/issues/JohannesL2/kanban-board/help%20wanted?color=2EA043&label=help%20wanted)](https://github.com/JohannesL2/kanban-board/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
