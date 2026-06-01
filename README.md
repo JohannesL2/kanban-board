@@ -16,6 +16,7 @@
 - Add and delete **tasks** in each section
 - **Responsive design** with Tailwind CSS
 - Clean and modern **UI/UX**
+- 🔮 **[YOUR FEATURE HERE]:** Have a cool idea? Check our issues or open a PR!
 
 ---
 
