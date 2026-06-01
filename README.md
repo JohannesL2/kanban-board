@@ -1,6 +1,8 @@
 # 📝 Kanban board
 
 ![Build Status](https://github.com/JohannesL2/kanban-board/actions/workflows/ci.yml/badge.svg)
+[![Good First Issues](https://img.shields.io/github/issues/JohannesL2/kanban-board/good%20first%20issue?color=7B61FF&label=good%20first%20issues)](https://github.com/JohannesL2/kanban-board/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+[![Help Wanted](https://img.shields.io/github/issues/JohannesL2/kanban-board/help%20wanted?color=2EA043&label=help%20wanted)](https://github.com/JohannesL2/kanban-board/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
 
 <img width="1344" height="768" alt="a modern React Kanban Board application displayed on a sleek desktop monitor" src="https://github.com/user-attachments/assets/bca3fbb7-133e-4ae5-87e5-cb404e597b4d" />
 
