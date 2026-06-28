@@ -1,6 +1,6 @@
-# 📝 Kanban board
+# Kanban board
 
-### ⚡ Quick Contribution (Launch in 1-Click)
+### Quick Contribution (Launch in 1-Click)
 Don't want to clone it locally? Fix issues directly in your browser:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/JohannesL2/kanban-board)
@@ -15,17 +15,17 @@ Don't want to clone it locally? Fix issues directly in your browser:
 
 ---
 
-## 🚀 Features
+## Features
 
 - Create multiple **sections** (e.g., "Backlog", "In progress")
 - Add and delete **tasks** in each section
 - **Responsive design** with Tailwind CSS
 - Clean and modern **UI/UX**
-- 🔮 **[YOUR FEATURE HERE]:** Have a cool idea? Check our issues or open a PR!
+- **Have a cool idea?** Check our issues or open a PR!
 
 ---
 
-## 🛠️ Technologies
+## Technologies
 
 - **React** – Frontend framework
 - **Tailwind CSS** – Styling
@@ -35,7 +35,7 @@ Don't want to clone it locally? Fix issues directly in your browser:
 
 ---
 
-## 📦 Installation
+## Installation
 
 1. Clone the repo:  
    ```bash
